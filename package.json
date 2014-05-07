@@ -19,5 +19,8 @@
     "handlebars": "^2.0.0-alpha.2",
     "less-middleware": "^0.2.1-beta",
     "morgan": "^1.0.1"
+  },
+  "devDependencies": {
+    "express-livereload": "0.0.24"
   }
 }

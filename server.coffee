@@ -1,5 +1,4 @@
-debug     = true
-
+debug     = false
 path      = require 'path'
 cons      = require 'consolidate'
 express   = require 'express'
@@ -20,6 +19,21 @@ app.set('page.title', 'NextGen Boilerplate')
 app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
 app.set('views', path.join(__dirname, 'views'))
+
+if app.get('env') is 'development'
+	debug = true
+	livereload = require 'express-livereload'
+	livereload(app, {
+		watchDir: app.get('paths.staticSrc')
+		exts: [
+			'js'
+			'coffee'
+			'less'
+			'css'
+		]
+	})
+	console.log("Livereload server started")
+
 
 app.use(logger(if debug then 'dev' else null))
 
