@@ -9,6 +9,7 @@
     "start": "nodemon --ignore static/ server.coffee"
   },
   "dependencies": {
+    "autoprefixer": "^1.1.20140430",
     "brfs": "^1.1.1",
     "coffee-script": "^1.7.1",
     "coffeeify": "^0.6.0",

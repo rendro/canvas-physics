@@ -1,12 +1,13 @@
-debug     = false
-path      = require 'path'
-cons      = require 'consolidate'
-express   = require 'express'
-logger    = require 'morgan'
-less      = require 'less-middleware'
-enchilada = require 'enchilada'
-coffeeify = require 'coffeeify'
-es6ify    = require 'es6ify'
+debug        = true
+path         = require 'path'
+cons         = require 'consolidate'
+express      = require 'express'
+logger       = require 'morgan'
+less         = require 'less-middleware'
+enchilada    = require 'enchilada'
+coffeeify    = require 'coffeeify'
+es6ify       = require 'es6ify'
+autoprefixer = require 'autoprefixer'
 
 app = express()
 
@@ -40,7 +41,18 @@ app.use(logger(if debug then 'dev' else null))
 app.use(less(app.get('paths.staticSrc.less'), {
 	dest: app.get('paths.staticDest')
 	debug: debug
-}, {}, {
+	once: !debug
+	postprocess:
+		css: (css) ->
+			return autoprefixer.process(css, {
+				map: debug
+				inlineMap: debug
+			}).css
+}, {
+	paths: [
+		path.join(__dirname, 'node_modules')
+	]
+}, {
 	compress: !debug
 	sourceMap: debug
 	yuicompress: !debug

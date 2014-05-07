@@ -1,4 +1,24 @@
+@white: #fff;
+@black: #323232;
+@gray-lighter: #f9f9f9;
+
+@import (less) '/normalize.css/normalize.css';
+
+*{
+	box-sizing: border-box;
+}
+
+html,
+body{
+	min-height: 100%;
+}
+
 html{
-	padding: 50px;
+	border: 20px solid @black;
+	background: @white;
 	font: 18px/1.54 Arial, Verdana, sans-serif;
+}
+
+.app{
+	padding: 20px;
 }

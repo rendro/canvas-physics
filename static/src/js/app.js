@@ -7,4 +7,4 @@ var Developer = require('./developer.js');
 }
 
 // should be undefined
-console.log("me is", typeof me);
+console.log('me is', typeof me);
