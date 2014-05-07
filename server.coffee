@@ -1,15 +1,16 @@
-debug        = true
-path         = require 'path'
-cons         = require 'consolidate'
-express      = require 'express'
-logger       = require 'morgan'
-less         = require 'less-middleware'
-enchilada    = require 'enchilada'
-coffeeify    = require 'coffeeify'
-es6ify       = require 'es6ify'
-autoprefixer = require 'autoprefixer'
+debug          = true
+fs             = require 'fs'
+path           = require 'path'
+cons           = require 'consolidate'
+express        = require 'express'
+logger         = require 'morgan'
+
+jsMiddleware   = require './middlewares/js'
+lessMiddleware = require './middlewares/less'
 
 app = express()
+
+app.set('debug', debug)
 
 app.set('paths.staticSrc', path.join(__dirname, 'static', 'src'))
 app.set('paths.staticSrc.less', path.join(app.get('paths.staticSrc'), 'less'))
@@ -35,43 +36,20 @@ if app.get('env') is 'development'
 	})
 	console.log("Livereload server started")
 
+app.use(logger(if app.get('debug') then 'dev' else null))
 
-app.use(logger(if debug then 'dev' else null))
-
-app.use(less(app.get('paths.staticSrc.less'), {
-	dest: app.get('paths.staticDest')
-	debug: debug
-	once: !debug
-	postprocess:
-		css: (css) ->
-			return autoprefixer.process(css, {
-				map: debug
-				inlineMap: debug
-			}).css
-}, {
-	paths: [
-		path.join(__dirname, 'node_modules')
-	]
-}, {
-	compress: !debug
-	sourceMap: debug
-	yuicompress: !debug
-}))
-
-# allow let keyword
-es6ify.traceurOverrides.blockBinding = true
-
-app.use(enchilada({
-	cache: !debug,
-	compress: !debug,
-	debug: debug,
-	src: app.get('paths.staticSrc.js'),
-	transforms: [coffeeify, es6ify]
-}))
+lessMiddleware(app)
+jsMiddleware(app)
 
 app.use(express.static(app.get('paths.staticDest')))
 
-app.get('*', (req, res) ->
+# if app.get('env') is 'development'
+# 	# app.get(/\.less$/, (req, res) ->
+# 	# 	fs.createReadStream(req.url).pipe(res)
+# 	# )
+
+app.get('*/', (req, res) ->
+	console.log req.url
 	res.render('layouts/default', {
 		title: app.get('page.title')
 		partials:
