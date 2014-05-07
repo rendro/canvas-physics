@@ -6,11 +6,15 @@
   "author": "Robert Fleischmann",
   "private": true,
   "scripts": {
-    "start": "coffee server.coffee"
+    "start": "nodemon --ignore static/ server.coffee"
   },
   "dependencies": {
+    "brfs": "^1.1.1",
     "coffee-script": "^1.7.1",
+    "coffeeify": "^0.6.0",
     "consolidate": "^0.10.0",
+    "enchilada": "^0.8.1",
+    "es6ify": "^1.1.0",
     "express": "^4.1.1",
     "handlebars": "^2.0.0-alpha.2",
     "less-middleware": "^0.2.1-beta",
