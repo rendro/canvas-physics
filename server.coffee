@@ -22,7 +22,7 @@ app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
 app.set('views', path.join(__dirname, 'views'))
 
-if app.get('env') is 'development'
+if false && app.get('env') is 'development'
 	debug = true
 	livereload = require 'express-livereload'
 	livereload(app, {
@@ -39,14 +39,17 @@ if app.get('env') is 'development'
 app.use(logger(if app.get('debug') then 'dev' else null))
 
 lessMiddleware(app)
-jsMiddleware(app)
+# jsMiddleware(app)
 
 app.use(express.static(app.get('paths.staticDest')))
 
-# if app.get('env') is 'development'
-# 	# app.get(/\.less$/, (req, res) ->
-# 	# 	fs.createReadStream(req.url).pipe(res)
-# 	# )
+if app.get('env') is 'development'
+	app.get(/\.less$/, (req, res) ->
+		if fs.exists(req.url)
+			fs.createReadStream(req.url).pipe(res)
+		else
+			fs.createReadStream(path.join(process.cwd(), req.url)).pipe(res)
+	)
 
 app.get('*/', (req, res) ->
 	console.log req.url

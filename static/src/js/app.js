@@ -1,4 +1,4 @@
-require('../../../node_modules/traceur/bin/traceur-runtime.js');
+// require('../../../node_modules/traceur/bin/traceur-runtime.js');
 
 var Developer = require('./developer.js');
 {

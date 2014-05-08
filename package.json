@@ -12,16 +12,17 @@
     "autoprefixer": "^1.1.20140430",
     "brfs": "^1.1.1",
     "coffee-script": "^1.7.1",
-    "coffeeify": "^0.6.0",
     "consolidate": "^0.10.0",
-    "enchilada": "^0.8.1",
-    "es6ify": "^1.1.0",
     "express": "^4.1.1",
     "handlebars": "^2.0.0-alpha.2",
-    "less-middleware": "^0.2.1-beta",
-    "morgan": "^1.0.1"
+    "less": "^1.7.0",
+    "morgan": "^1.0.1",
+    "node-watch": "^0.3.4",
+    "normalize.css": "^3.0.1",
+    "traceur": "0.0.40"
   },
   "devDependencies": {
-    "express-livereload": "0.0.24"
+    "express-livereload": "0.0.24",
+    "nodemon": "^1.0.17"
   }
 }
