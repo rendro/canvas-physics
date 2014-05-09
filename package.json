@@ -2,11 +2,11 @@
   "name": "nextgen-bp",
   "version": "0.0.0",
   "description": "Next generation boilerplate",
-  "main": "server.coffee",
+  "main": "server/server.coffee",
   "author": "Robert Fleischmann",
   "private": true,
   "scripts": {
-    "start": "nodemon --ignore static/ server.coffee"
+    "start": "nodemon server/server.coffee"
   },
   "dependencies": {
     "autoprefixer": "^1.1.20140430",
