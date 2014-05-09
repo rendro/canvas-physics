@@ -35,6 +35,10 @@ app.use('/app.css', less({
 	paths: [
 		path.join(rootDir, 'node_modules')
 	]
+	autoprefixer: [
+		'last 2 versions'
+		'> 1%'
+	]
 }))
 
 app.use('/app.js', js({

@@ -30,7 +30,8 @@ class Less extends Middleware
 				outputSourceFiles: true
 			})
 
-			result = autoprefixer.process(css, {
+
+			result = autoprefixer.apply(null,@config.autoprefixer).process(css, {
 				from: path.basename(@config.src)
 				to: path.basename(@config.src).replace('.less', '.css')
 				inlineMap: true
