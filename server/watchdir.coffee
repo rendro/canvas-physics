@@ -2,9 +2,6 @@ fs   = require 'fs'
 path = require 'path'
 
 class WatchDir
-
-	callbacks = {}
-
 	isDir = (f) ->
 		return fs.statSync(f).isDirectory()
 
@@ -24,23 +21,24 @@ class WatchDir
 		return result
 
 	constructor: (_path, pattern) ->
-		@watcher = []
+		@callbacks = {}
+		@watchers = []
 		@lastChange = {}
 		@files = recursiveFindFiles(_path, pattern)
 		@files.forEach( (file) =>
-			@watcher.push fs.watch(file, (event) =>
+			@watchers.push fs.watch(file, (event) =>
 				if event == 'change'
 					@lastChange[file] = 0 unless @lastChange[file]
 					stats = fs.statSync(file)
 					if @lastChange[file] < stats.mtime
 						@lastChange[file] = stats.mtime
-						callbacks['change'].forEach((cb) -> cb(file))
+						@callbacks['change'].forEach((cb) -> cb(file))
 			)
 		)
 
 	on: (event, callback) =>
-		callbacks[event] = [] unless callbacks[event]
-		callbacks[event].push(callback)
+		@callbacks[event] = [] unless @callbacks[event]
+		@callbacks[event].push(callback)
 		return @
 
 	end: ->

@@ -1,44 +1,33 @@
-fs      = require 'fs'
-traceur = require 'traceur'
+fs         = require 'fs'
+path       = require 'path'
+browserify = require 'browserify'
+es6ify     = require 'es6ify'
+Middleware = require './middleware.coffee'
 
-# enchilada      = require 'enchilada'
-# coffeeify      = require 'coffeeify'
-# es6ify         = require 'es6ify'
+es6ify.traceurOverrides =
+	blockBinding: true
 
-# # allow let keyword
-# es6ify.traceurOverrides.blockBinding = true
+class Js extends Middleware
 
-JsMiddleware = (app) ->
+	filePattern: /\.js$/
 
-	debug = app.get('debug')
+	contentType: 'text/javascript'
 
-	contents = fs.readFileSync(process.cwd() + '/static/src/js/app.js').toString();
+	compile: (file) =>
+		file && console.log("#{file} changed: javascript compiled")
+		contents = fs.readFileSync(@config.src).toString()
 
-	result = traceur.compile(contents, {
-		filename: 'app.js',
-		sourceMap: true,
-		# etc other Traceur options
-		modules: 'commonjs'
-		blockBinding: true
-	})
+		browserify()
+			.add(es6ify.runtime)
+			.transform(es6ify)
+			.require(require.resolve(@config.src), { entry: true })
+			.bundle({ debug: true }, (err, src) =>
+				return console.log(err) if err
+				@compiledSource = src
+			)
 
-	console.log result
+		return
 
-	throw result.error if result.error
-
-	console.log result.js
-
-	# fs.writeFileSync('out.js', result.js);
-	# fs.writeFileSync('out.js.map', result.sourceMap);
-
-# 	app.use(enchilada({
-# 		cache: !debug,
-# 		compress: !debug,
-# 		debug: debug,
-# 		src: app.get('paths.staticSrc.js'),
-# 		transforms: [coffeeify, es6ify]
-# 	}))
-#
-# 	return
-
-module.exports = JsMiddleware
+module.exports = (cfg) ->
+	mw = new Js(cfg)
+	return mw.handleRequest

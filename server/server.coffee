@@ -4,7 +4,7 @@ cons           = require 'consolidate'
 express        = require 'express'
 logger         = require 'morgan'
 
-jsMiddleware   = require './middlewares/js'
+js   = require './middlewares/js'
 less = require './middlewares/less'
 
 app = express()
@@ -13,7 +13,6 @@ rootDir = process.cwd()
 staticDir = path.join(rootDir, 'static')
 
 app.set('page.title', 'NextGen Boilerplate')
-
 
 app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
@@ -24,12 +23,7 @@ if app.get('env') is 'development'
 	livereload = require 'express-livereload'
 	livereload(app, {
 		watchDir: staticDir
-		exts: [
-			'js'
-			'coffee'
-			'less'
-			'css'
-		]
+		exts: [ 'js', 'coffee', 'less', 'css' ]
 	})
 	console.log("Livereload server started")
 else
@@ -43,11 +37,9 @@ app.use('/app.css', less({
 	]
 }))
 
-
-# lessMiddleware(app)
-# jsMiddleware(app)
-
-# app.use(express.static(app.get('paths.staticDest')))
+app.use('/app.js', js({
+	src: path.join(staticDir, 'js', 'app.js')
+}))
 
 app.get('*/', (req, res) ->
 	res.render('layouts/default', {

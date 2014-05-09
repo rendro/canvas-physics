@@ -2,48 +2,44 @@ fs           = require 'fs'
 path         = require 'path'
 less         = require 'less'
 autoprefixer = require 'autoprefixer'
-WatchDir     = require '../watchdir.coffee'
+Middleware   = require './middleware.coffee'
 
-LessMiddleware = (cfg) ->
+class Less extends Middleware
 
-	compiledCss = ''
+	filePattern: /\.less$/
 
-	watcher = new WatchDir(path.dirname(cfg.src), /\.less$/)
-	watcher.on 'change', (filename) ->
-		console.log "#{filename} changed"
-		compile()
+	contentType: 'text/css'
 
-	parser = new(less.Parser)({
-		filename: path.basename(cfg.src)
-		paths: cfg.paths or []
-	})
+	constructor: (@config) ->
 
-	compile = ->
-		contents = fs.readFileSync(cfg.src).toString()
-		parser.parse(contents, (e, tree) ->
+		@parser = new(less.Parser)({
+			filename: path.basename(@config.src)
+			paths: @config.paths or []
+		})
+
+		super(@config)
+
+	compile: (file) =>
+		file && console.log("#{file} changed: LESS compiled")
+		contents = fs.readFileSync(@config.src).toString()
+		@parser.parse(contents, (e, tree) =>
+			console.log e if e
+
 			css = tree.toCSS({
 				sourceMap: true
 				outputSourceFiles: true
 			})
 
 			result = autoprefixer.process(css, {
-				from: path.basename(cfg.src)
-				to: 'app.css'
+				from: path.basename(@config.src)
+				to: path.basename(@config.src).replace('.less', '.css')
 				inlineMap: true
 			})
 
-			compiledCss = result.css
+			@compiledSource = result.css
 		)
+		return
 
-	compile()
-
-	handleRequest = (req, res) ->
-		res.set({
-			'Content-Length': compiledCss.length,
-			'Content-Type': 'text/css'
-		})
-		res.send(200, compiledCss)
-
-	return handleRequest
-
-module.exports = LessMiddleware
+module.exports = (cfg) ->
+	mw = new Less(cfg)
+	return mw.handleRequest
