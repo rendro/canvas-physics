@@ -11,14 +11,14 @@ the technologies of today and tomorrow.
 * Livereload
 * Custom middlewares that recompile on change and serve compiled sources out of memory (fast without IO)
 
-### Middlewares
+## Middlewares
 
-#### JavaScript
+### JavaScript
 
 * commonJS modules bundled with browserify
 * support for ES6 syntax with es6ify and traceur (!polyfill)
 
-#### LESS
+### LESS
 
 * autoprefixer
 * normalize.css
