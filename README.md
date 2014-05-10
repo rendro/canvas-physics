@@ -1,16 +1,24 @@
-# Front End Boilerplate
+# Experimental Front End Boilerplate
 
-State of the art front end boilerplate to kickstart projects that are built with
-the technologies of tomorrow.
+This is an experimental frontend boilerplate to kickstart projects that are built with
+the technologies of today and tomorrow.
 
-## Supports the following technologies:
+**Please do not use in production!**
 
-* express 4 node.js application
+## Current technologies
 
-* commonJS modules (w/ browserify)
-	* ES6 syntax with es6ify and traceur
-	* coffee-script
+* node.js application w/ express 4.x
+* Livereload
+* Custom middlewares that recompile on change and serve compiled sources out of memory (fast without IO)
 
-* LESS
-	* autoprefixer
-	* normalize.css
+### Middlewares
+
+#### JavaScript
+
+* commonJS modules bundled with browserify
+* support for ES6 syntax with es6ify and traceur (!polyfill)
+
+#### LESS
+
+* autoprefixer
+* normalize.css
