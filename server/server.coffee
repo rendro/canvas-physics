@@ -9,25 +9,28 @@ less = require './middlewares/less'
 
 app = express()
 
-rootDir = process.cwd()
+rootDir   = process.cwd()
 staticDir = path.join(rootDir, 'static')
+viewsDir  = path.join(process.cwd(), 'views')
 
 app.set('page.title', 'NextGen Boilerplate')
 
 app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
-app.set('views', path.join(process.cwd(), 'views'))
+app.set('views', viewsDir)
+
 
 if app.get('env') is 'development'
 	app.use(logger('dev'))
-	livereload = require 'express-livereload'
-	livereload(app, {
-		watchDir: staticDir
-		exts: [ 'js', 'coffee', 'less', 'css' ]
+	app.locals.LRScript = "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js\"></' + 'script>')</script>";
+	lrServer = require('livereload').createServer({
+		exts: [ 'js', 'coffee', 'less', 'css', 'html' ]
 	})
-	console.log("Livereload server started")
+	lrServer.watch(staticDir)
+	lrServer.watch(viewsDir)
 else
 	app.use(logger())
+	app.locals.LRScript = ""
 
 
 app.use('/app.css', less({
@@ -43,6 +46,8 @@ app.use('/app.css', less({
 
 app.use('/app.js', js({
 	src: path.join(staticDir, 'js', 'app.js')
+	traceur:
+		blockBinding: true
 }))
 
 app.get('*/', (req, res) ->

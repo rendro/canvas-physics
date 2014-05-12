@@ -1,7 +1,7 @@
 {
-  "name": "nextgen-bp",
-  "version": "0.0.0",
-  "description": "Next generation boilerplate",
+  "name": "experimental-frontend-boilerplate",
+  "version": "0.0.1",
+  "description": "Experimental generation boilerplate. Do not use in production!",
   "main": "server/server.coffee",
   "author": "Robert Fleischmann",
   "private": true,
@@ -22,7 +22,7 @@
     "traceur": "0.0.40"
   },
   "devDependencies": {
-    "express-livereload": "0.0.24",
+    "livereload": "git://github.com/mnmly/node-livereload.git",
     "nodemon": "^1.0.17"
   }
 }

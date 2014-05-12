@@ -19,6 +19,26 @@ html{
 	font: 18px/1.54 Arial, Verdana, sans-serif;
 }
 
+h1,
+h2{
+	margin-top: 0;
+	text-transform: uppercase;
+	letter-spacing: 0.01em;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+li{
+	&::before{
+		content: "//";
+		margin-right: .5em;
+		color: fade(@black, 30%);
+	}
+}
+
 .app{
 	padding: 20px;
 }

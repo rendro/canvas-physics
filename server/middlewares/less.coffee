@@ -20,7 +20,7 @@ class Less extends Middleware
 		super(@config)
 
 	compile: (file) =>
-		file && console.log("#{file} changed: LESS compiled")
+		file && console.log("#{path.relative(process.cwd(), file)} changed: LESS compiled")
 		contents = fs.readFileSync(@config.src).toString()
 		@parser.parse(contents, (e, tree) =>
 			console.log e if e
@@ -29,7 +29,6 @@ class Less extends Middleware
 				sourceMap: true
 				outputSourceFiles: true
 			})
-
 
 			result = autoprefixer.apply(null,@config.autoprefixer).process(css, {
 				from: path.basename(@config.src)

@@ -1,11 +1,8 @@
 fs         = require 'fs'
 path       = require 'path'
-browserify = require 'browserify'
 es6ify     = require 'es6ify'
+browserify = require 'browserify'
 Middleware = require './middleware.coffee'
-
-es6ify.traceurOverrides =
-	blockBinding: true
 
 class Js extends Middleware
 
@@ -13,8 +10,13 @@ class Js extends Middleware
 
 	contentType: 'text/javascript'
 
+	constructor: (@config) ->
+		super(@config)
+		if @config.traceur
+			es6ify.traceurOverrides = @config.traceur
+
 	compile: (file) =>
-		file && console.log("#{file} changed: javascript compiled")
+		file && console.log("#{path.relative(process.cwd(), file)} changed: javascript compiled")
 		contents = fs.readFileSync(@config.src).toString()
 
 		browserify()
