@@ -15,6 +15,8 @@ viewsDir  = path.join(process.cwd(), 'views')
 
 app.set('page.title', 'NextGen Boilerplate')
 
+app.set('port', process.env.PORT or 3000)
+
 app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
 app.set('views', viewsDir)
@@ -58,5 +60,6 @@ app.get('*/', (req, res) ->
 	})
 )
 
-app.listen 3000, ->
-	console.log("Server listening on port 3000")
+app.listen(app.get('port'), ->
+	console.log("Server listening on port #{app.get('port')}")
+)
