@@ -10,6 +10,7 @@ class Middleware
 	contentType: 'text/plain'
 
 	constructor: (@config) ->
+		@compiledSource = ''
 		@watcher = new WatchDir(path.dirname(@config.src), @filePattern)
 		@watcher.on('change', @compile)
 		@compile()

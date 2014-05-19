@@ -1,5 +1,6 @@
 fs           = require 'fs'
 path         = require 'path'
+colors       = require 'colors'
 less         = require 'less'
 autoprefixer = require 'autoprefixer'
 Middleware   = require './middleware.coffee'
@@ -19,16 +20,28 @@ class Less extends Middleware
 
 		super(@config)
 
+	logError: (err) ->
+		errorMessage = "LESS #{err.type} error: #{err.message} in #{err.filename}:#{err.line}:#{err.column}"
+		@compiledSource = "body::before{display:block;content:'#{errorMessage}';background:white;color:red;border:3px solid red;padding: 20px;font:20px/1.5 Helvetica,Arial,sans-serif;}"
+		console.log errorMessage.red
+		return
+
 	compile: (file) =>
 		file && console.log("#{path.relative(process.cwd(), file)} changed: LESS compiled")
 		contents = fs.readFileSync(@config.src).toString()
-		@parser.parse(contents, (e, tree) =>
-			console.log e if e
+		@parser.parse(contents, (err, tree) =>
+			if err
+				@logError(err)
+				return
 
-			css = tree.toCSS({
-				sourceMap: true
-				outputSourceFiles: true
-			})
+			try
+				css = tree.toCSS({
+					sourceMap: true
+					outputSourceFiles: true
+				})
+			catch err
+				@logError(err)
+				return
 
 			result = autoprefixer.apply(null,@config.autoprefixer).process(css, {
 				from: path.basename(@config.src)
