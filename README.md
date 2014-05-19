@@ -22,3 +22,19 @@ the technologies of today and tomorrow.
 
 * autoprefixer
 * normalize.css
+
+## How to use?
+
+First, you need to install all packages via npm:
+
+```  
+$ npm install
+```
+
+Start the server:
+
+```
+$ npm start
+```
+
+Then visit [http://localhost:3000](http://localhost:3000)
