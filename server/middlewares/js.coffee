@@ -15,6 +15,12 @@ class Js extends Middleware
 		if @config.traceur
 			es6ify.traceurOverrides = @config.traceur
 
+	logError: (err) ->
+		errorMessage = "JavaScript compilation #{err}"
+		@compiledSource = "console.error ? console.error(\"#{errorMessage}\") : console.log(\"#{errorMessage}\");"
+		console.log errorMessage.red
+		return
+
 	compile: (file) =>
 		file && console.log("#{path.relative(process.cwd(), file)} changed: javascript compiled")
 		contents = fs.readFileSync(@config.src).toString()
@@ -24,7 +30,9 @@ class Js extends Middleware
 			.transform(es6ify)
 			.require(require.resolve(@config.src), { entry: true })
 			.bundle({ debug: true }, (err, src) =>
-				return console.log(err) if err
+				if err
+					@logError(err)
+					return
 				@compiledSource = src
 			)
 

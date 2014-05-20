@@ -6,7 +6,7 @@
   "author": "Robert Fleischmann",
   "private": true,
   "scripts": {
-    "start": "nodemon --ignore static server/server.coffee"
+    "start": "nodemon --ignore static --ignore node_modules server/server.coffee"
   },
   "dependencies": {
     "autoprefixer": "^1.1.20140430",
