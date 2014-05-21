@@ -50,8 +50,7 @@ class Less extends Middleware
 
 			@compiledSource = result.css
 		)
+		super
 		return
 
-module.exports = (cfg) ->
-	mw = new Less(cfg)
-	return mw.handleRequest
+module.exports = Less

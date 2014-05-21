@@ -4,9 +4,6 @@ cons           = require 'consolidate'
 express        = require 'express'
 logger         = require 'morgan'
 
-js   = require './middlewares/js'
-less = require './middlewares/less'
-
 app = express()
 
 rootDir   = process.cwd()
@@ -26,31 +23,70 @@ if app.get('env') is 'development'
 	app.use(logger('dev'))
 	app.locals.LRScript = "<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js\"></' + 'script>')</script>";
 	lrServer = require('livereload').createServer({
-		exts: [ 'js', 'coffee', 'less', 'css', 'html' ]
+		exts: [ 'html' ]
 	})
-	lrServer.watch(staticDir)
 	lrServer.watch(viewsDir)
 else
 	app.use(logger())
 	app.locals.LRScript = ""
 
 
-app.use('/app.css', less({
-	src: path.join(staticDir, 'less', 'app.less')
-	paths: [
-		path.join(rootDir, 'node_modules')
-	]
+###
+# CSS PREPROCESSOR
+###
+
+Myth = require './middlewares/myth'
+
+myth = new Myth({
+	src: path.join(staticDir, 'stylesheets', 'app.css')
 	autoprefixer: [
 		'last 2 versions'
 		'> 1%'
 	]
-}))
+})
 
-app.use('/app.js', js({
-	src: path.join(staticDir, 'js', 'app.js')
+app.use('/app.css', myth.handleRequest)
+
+myth.on('compiled', (file) ->
+	lrServer.refresh('/app.css')
+)
+
+# Less = require './middlewares/less'
+
+# less = new Less({
+# 	src: path.join(staticDir, 'stylesheets', 'app.less')
+# 	paths: [
+# 		path.join(process.cwd(), 'node_modules')
+# 	]
+# 	autoprefixer: [
+# 		'last 2 versions'
+# 		'> 1%'
+# 	]
+# })
+
+# app.use('/app.css', less.handleRequest)
+
+# less.on('compiled', (file) ->
+# 	lrServer.refresh('/app.css')
+# )
+
+###
+# JS PREPROCESSOR
+###
+Js = require './middlewares/js'
+
+js = new Js({
+	src: path.join(staticDir, 'javascript', 'app.js')
 	traceur:
 		blockBinding: true
-}))
+})
+
+app.use('/app.js', js.handleRequest)
+
+js.on('compiled', (file) ->
+	lrServer.refresh('/app.js')
+)
+
 
 app.get('*/', (req, res) ->
 	res.render('layouts/default', {

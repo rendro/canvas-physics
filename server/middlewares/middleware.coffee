@@ -1,8 +1,9 @@
 fs       = require 'fs'
 path     = require 'path'
+Observer = require '../observer.coffee'
 WatchDir = require '../watchdir.coffee'
 
-class Middleware
+class Middleware extends Observer
 
 	compiledSourcecompiledSource: ''
 
@@ -11,6 +12,7 @@ class Middleware
 	contentType: 'text/plain'
 
 	constructor: (@config) ->
+		super()
 		@compiledSource = ''
 		@watcher = new WatchDir(path.dirname(@config.src), @filePattern)
 		@watcher.on('change', @compile)
@@ -20,6 +22,7 @@ class Middleware
 		return fs.readFileSync(@config.src).toString()
 
 	compile: =>
+		@emit('compiled', @config.src)
 
 	handleRequest: (req, res) =>
 		res.set({

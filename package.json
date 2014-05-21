@@ -19,6 +19,7 @@
     "handlebars": "^2.0.0-alpha.2",
     "less": "^1.7.0",
     "morgan": "^1.0.1",
+    "myth": "^1.0.3",
     "normalize.css": "^3.0.1",
     "traceur": "0.0.40"
   },

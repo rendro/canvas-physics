@@ -33,10 +33,8 @@ class Js extends Middleware
 					@logError(err)
 					return
 				@compiledSource = src
+				super
 			)
-
 		return
 
-module.exports = (cfg) ->
-	mw = new Js(cfg)
-	return mw.handleRequest
+module.exports = Js

@@ -1,0 +1,44 @@
+:root{
+	--white: #fff;
+	--black: #323232;
+	--gray-lighter: #f9f9f9;
+}
+
+@import '../../node_modules/normalize.css/normalize.css';
+
+*{
+	box-sizing: border-box;
+}
+
+html,
+body{
+	min-height: 100%;
+}
+
+html{
+	border: 20px solid var(--black);
+	background: var(--white);
+	font: 18px/1.54 Arial, Verdana, sans-serif;
+}
+
+h1,
+h2{
+	margin-top: 0;
+	text-transform: uppercase;
+	letter-spacing: 0.01em;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+li::before{
+	content: "//";
+	margin-right: .5em;
+	color: color(var(--black) l(+ 30%));
+}
+
+.app{
+	padding: 20px;
+}

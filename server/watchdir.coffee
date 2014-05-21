@@ -1,7 +1,8 @@
-fs   = require 'fs'
-path = require 'path'
+fs       = require 'fs'
+path     = require 'path'
+Observer = require './observer.coffee'
 
-class WatchDir
+class WatchDir extends Observer
 	isDir = (f) ->
 		return fs.statSync(f).isDirectory()
 
@@ -21,7 +22,7 @@ class WatchDir
 		return result
 
 	constructor: (_path, pattern) ->
-		@callbacks = {}
+		super()
 		@watchers = []
 		@lastChange = {}
 		@files = recursiveFindFiles(_path, pattern)
@@ -32,14 +33,9 @@ class WatchDir
 					stats = fs.statSync(file)
 					if @lastChange[file] < stats.mtime
 						@lastChange[file] = stats.mtime
-						@callbacks['change'].forEach((cb) -> cb(file))
+						@emit('change', file)
 			)
 		)
-
-	on: (event, callback) =>
-		@callbacks[event] = [] unless @callbacks[event]
-		@callbacks[event].push(callback)
-		return @
 
 	end: ->
 		watcher.end() for watcher of @watchers
