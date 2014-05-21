@@ -1,3 +1,4 @@
+fs       = require 'fs'
 path     = require 'path'
 WatchDir = require '../watchdir.coffee'
 
@@ -14,6 +15,9 @@ class Middleware
 		@watcher = new WatchDir(path.dirname(@config.src), @filePattern)
 		@watcher.on('change', @compile)
 		@compile()
+
+	readSrcFile: =>
+		return fs.readFileSync(@config.src).toString()
 
 	compile: =>
 

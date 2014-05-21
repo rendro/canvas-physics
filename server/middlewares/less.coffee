@@ -1,4 +1,3 @@
-fs           = require 'fs'
 path         = require 'path'
 colors       = require 'colors'
 less         = require 'less'
@@ -28,7 +27,7 @@ class Less extends Middleware
 
 	compile: (file) =>
 		file && console.log("#{path.relative(process.cwd(), file)} changed: LESS compiled")
-		contents = fs.readFileSync(@config.src).toString()
+		contents = @readSrcFile()
 		@parser.parse(contents, (err, tree) =>
 			if err
 				@logError(err)

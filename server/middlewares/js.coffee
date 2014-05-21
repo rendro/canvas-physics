@@ -1,4 +1,3 @@
-fs         = require 'fs'
 path       = require 'path'
 es6ify     = require 'es6ify'
 browserify = require 'browserify'
@@ -23,7 +22,7 @@ class Js extends Middleware
 
 	compile: (file) =>
 		file && console.log("#{path.relative(process.cwd(), file)} changed: javascript compiled")
-		contents = fs.readFileSync(@config.src).toString()
+		contents = @readSrcFile()
 
 		browserify()
 			.add(es6ify.runtime)
