@@ -23,11 +23,15 @@ the technologies of today and tomorrow.
 * autoprefixer
 * normalize.css
 
+### [Myth](http://www.myth.io/)
+
+* includes autoprefixer
+
 ## How to use?
 
 First, you need to install all packages via npm:
 
-```  
+```
 $ npm install
 ```
 
