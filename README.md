@@ -13,15 +13,15 @@ This is an experimental frontend boilerplate to play around with future technolo
 
 ### JavaScript
 
-* Use the commonJS modules
-* [browserify](http://browserify.org/) to bundle the JavaScript
+* Use the commonJS module pattern in the browser with [browserify](http://browserify.org/)
 * ES6 syntax with the [traceur-compiler](https://github.com/google/traceur-compiler): This adds about 1400 lines of polyfill code
+* inline source maps for easy debugging
 
 ### LESS
 
-* Well not a real future syntax but it is nice anyways
-* autoprefixer to get rid of those prefixes in your nice source
-* normalize.css via npm
+* Well not a real future technology but it is nice anyways
+* autoprefixer to get rid of vendor prefixes
+* normalize.css via npm (or any other lib)
 * inline source maps for easy debugging
 
 ### [Myth](http://www.myth.io/)
