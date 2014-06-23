@@ -15,7 +15,7 @@ class Middleware extends Observer
 		super()
 		@compiledSource = ''
 		@watcher = new WatchDir(path.dirname(@config.src), @filePattern)
-		@watcher.on('change', @compile)
+		@watcher.on('add change delete', @compile)
 		@compile()
 
 	readSrcFile: =>

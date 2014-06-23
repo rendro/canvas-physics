@@ -2,10 +2,11 @@ class Observer
 	constructor: ->
 		@callbacks = {}
 
-	on: (event, callback) =>
-		@callbacks = {} unless @callbacks?
-		@callbacks[event] = [] unless @callbacks[event]?
-		@callbacks[event].push(callback)
+	on: (events, callback) =>
+		for event in events.split(' ')
+			@callbacks = {} unless @callbacks?
+			@callbacks[event] = [] unless @callbacks[event]?
+			@callbacks[event].push(callback)
 		return @
 
 	emit: (event, args...) =>
