@@ -15,30 +15,11 @@ body{
 	min-height: 100%;
 }
 
-html{
-	border: 20px solid var(--black);
-	background: var(--white);
-	font: 18px/1.54 Arial, Verdana, sans-serif;
-}
-
-h1,
-h2{
-	margin-top: 0;
-	text-transform: uppercase;
-	letter-spacing: 0.01em;
-}
-
-ul{
-	list-style-type: none;
-	padding: 0;
-}
-
-li::before{
-	content: "//";
-	margin-right: .5em;
-	color: color(var(--black) l(+ 30%));
-}
-
-.app{
+body{
 	padding: 20px;
+}
+
+canvas {
+	display: block;
+	border: 2px solid var(--black);
 }
