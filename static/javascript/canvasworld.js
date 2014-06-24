@@ -10,10 +10,6 @@ class CanvasWorld {
 		this.entities = [];
 		this.forces = [];
 		this.constraints = [];
-
-		this.gravity = new Vec2D(0, 9.81);
-		this.drag = 0.001;
-
 		this.debug = false;
 	}
 

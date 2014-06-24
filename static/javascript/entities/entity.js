@@ -10,6 +10,8 @@ var drawLine = function(color, from, force, ctx) {
 	ctx.stroke();
 };
 
+var emptyForce = new Vec2D();
+
 class Entity {
 
 	constructor(position = new Vec2D(), velocity = new Vec2D()) {
@@ -20,16 +22,13 @@ class Entity {
 	}
 
 	tick(world) {
-		if (world.drag) {
-			this.velocity.multiply(1 - world.drag);
-		}
+		// apply all forces
+		world.forces.forEach((force) => force.applyTo(this));
 
-		if (world.gravity) {
-			this.velocity.add(world.gravity.clone().divide(10));
-		}
-
+		// move particle
 		this.position.add(this.velocity.clone().divide(10));
 
+		// check all constraints
 		world.constraints.forEach((constraint) => constraint.applyConstraint(world, this));
 	}
 
@@ -40,10 +39,12 @@ class Entity {
 		drawLine('rgba(255,0,0,.5)', this.position, this.velocity, world.ctx);
 
 		// gravity
-		drawLine('rgba(0,0,255,.5)', this.position, world.gravity, world.ctx);
-
-		// forces
-		// tbd
+		world.forces.forEach((force) => {
+			let vecForce = force.getForceForDebug();
+			if (!vecForce.equals(emptyForce)) {
+				drawLine('rgba(0,0,255,.5)', this.position, vecForce, world.ctx);
+			}
+		});
 	}
 
 }

@@ -1,10 +1,11 @@
-var World = require('./CanvasWorld.js');
-var Vec2D = window.v = require('./vec2d.js');
+var World           = require('./CanvasWorld.js');
+var Vec2D           = require('./vec2d.js');
+var ConstantForce   = require('./forces/constant.js');
+var Drag            = require('./forces/drag.js');
 var EdgesConstraint = require('./constraints/edges.js');
-var DyingCircle = require('./entities/dyingcircle.js');
-var Circle = require('./entities/circle.js');
-
-var Emitter = require('./entities/emitter.js');
+var Circle          = require('./entities/circle.js');
+var DyingCircle     = require('./entities/dyingcircle.js');
+var Emitter         = require('./entities/emitter.js');
 
 // pause checkbox
 var pausedCheckbox = document.getElementById('pause');
@@ -16,7 +17,17 @@ pausedCheckbox.addEventListener('change', function() {
 var canvas = document.getElementById('world');
 var world = new World(canvas);
 world.setSize(800, 500);
+
 world.addConstraint(new EdgesConstraint());
+
+// gravity
+world.addForce(new ConstantForce(new Vec2D(0, 9.81)));
+
+// wind
+world.addForce(new ConstantForce(new Vec2D(4, 0)));
+
+// drag
+world.addForce(new Drag(0.01));
 
 
 var inversegravity = document.getElementById('inversegravity');
