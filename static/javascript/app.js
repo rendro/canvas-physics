@@ -36,7 +36,7 @@ var dyingCircleConstructor = function(position, velocity) {
 	return new DyingCircle(position, velocity, r, 3);
 };
 
-world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 40, 90, 10, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 40, 180, 10, dyingCircleConstructor));
 world.addEntity(new Emitter(new Vec2D(700, 300), 1, -45, 40, 10, 10, dyingCircleConstructor));
 world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 70, 5, 10, dyingCircleConstructor));
 

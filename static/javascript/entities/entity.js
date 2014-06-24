@@ -37,10 +37,10 @@ class Entity {
 
 	renderForces(world) {
 		// velocity
-		drawLine('red', this.position, this.velocity, world.ctx);
+		drawLine('rgba(255,0,0,.5)', this.position, this.velocity, world.ctx);
 
 		// gravity
-		drawLine('blue', this.position, world.gravity, world.ctx);
+		drawLine('rgba(0,0,255,.5)', this.position, world.gravity, world.ctx);
 
 		// forces
 		// tbd
