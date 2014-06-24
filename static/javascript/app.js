@@ -54,7 +54,7 @@ var circleConstructor = function(position, velocity) {
 // world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 
 //Snipper Emitter
-world.addEntity(new Emitter(new Vec2D(700, 300), 1, -50, 100, 0, 10, circleConstructor));
+world.addEntity(new Emitter(new Vec2D(700, 300), 0.2, -50, 100, 0, 10, circleConstructor));
 
 /**
  * UI ELEMENTS FOR CONTROLS
