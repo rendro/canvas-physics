@@ -12,6 +12,8 @@ class Emitter extends Entity {
 		this.velocitySpread           = velocitySpread || 0;
 		this.particleTypeConstructors = particleTypeConstructors;
 
+		this.paused = false;
+
 		super(position);
 
 		this.lifecycle = 0;
@@ -32,11 +34,17 @@ class Emitter extends Entity {
 	}
 
 	tick(world) {
+		if (this.paused) {
+			return;
+		}
+
 		if (this.ppt < 1 && this.shouldEmit < 1) {
 			this.shouldEmit += this.ppt;
 			return;
+
 		}
 		this.shouldEmit -= 1;
+
 		// does not move or is influenced by any forces or gravity but emits particles
 		for (let i = Math.max(this.ppt, 1); i > 0; --i) {
 			let particleConstructor = this.particleTypeConstructors[Math.floor(this.particleTypeConstructors.length * Math.random())];

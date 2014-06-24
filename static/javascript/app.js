@@ -53,8 +53,11 @@ var circleConstructor = function(position, velocity) {
 //world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 90, 5, 10, dyingCircleConstructor));
 // world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 
-//Snipper Emitter
-world.addEntity(new Emitter(new Vec2D(700, 300), 0.2, -50, 100, 0, 10, circleConstructor));
+//Sniper Emitter
+let sniperEmitter = new Emitter(new Vec2D(700, 300), 0.2, -50, 100, 0, 10, circleConstructor);
+world.addEntity(sniperEmitter);
+
+let uiControlableEmitter = [sniperEmitter];
 
 /**
  * UI ELEMENTS FOR CONTROLS
@@ -62,6 +65,7 @@ world.addEntity(new Emitter(new Vec2D(700, 300), 0.2, -50, 100, 0, 10, circleCon
 UiElement('#pause', 'change', (e) => world.paused = e.target.checked );
 UiElement('#inversegravity', 'change', () => gravity.force.multiply(-1));
 UiElement('#debug', 'change', (e) => world.debug = e.target.checked );
+UiElement('#pauseemitter', 'change', (e) => uiControlableEmitter.forEach((em) => em.paused = e.target.checked));
 
 
 var count = document.getElementById('pcount');
