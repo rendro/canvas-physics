@@ -21,10 +21,12 @@ world.setSize(800, 500);
 world.addConstraint(new EdgesConstraint());
 
 // gravity
-world.addForce(new ConstantForce(new Vec2D(0, 9.81)));
+let gravity = new ConstantForce(new Vec2D(0, 9.81));
+world.addForce(gravity);
 
 // wind
-world.addForce(new ConstantForce(new Vec2D(4, 0)));
+let wind = new ConstantForce(new Vec2D(4, 0));
+world.addForce(wind);
 
 // drag
 world.addForce(new Drag(0.01));
@@ -49,7 +51,7 @@ var dyingCircleConstructor = function(position, velocity) {
 
 world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 40, 180, 10, dyingCircleConstructor));
 world.addEntity(new Emitter(new Vec2D(700, 300), 1, -45, 40, 10, 10, dyingCircleConstructor));
-world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 70, 5, 10, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 90, 5, 10, dyingCircleConstructor));
 
 // world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 

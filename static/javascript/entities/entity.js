@@ -38,7 +38,7 @@ class Entity {
 		// velocity
 		drawLine('rgba(255,0,0,.5)', this.position, this.velocity, world.ctx);
 
-		// gravity
+		// all forces
 		world.forces.forEach((force) => {
 			let vecForce = force.getForceForDebug();
 			if (!vecForce.equals(emptyForce)) {
