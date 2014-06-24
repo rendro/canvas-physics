@@ -79,6 +79,13 @@ class Vec2D {
 		return this;
 	}
 
+	limit(max) {
+		if (this.magnitude() > max) {
+			this.normalize().multiply(max);
+		}
+		return this;
+	}
+
 	/**
 	 * Magnitude of the vector
 	 */
