@@ -12,6 +12,16 @@ class CanvasWorld {
 		this.constraints = [];
 		this.debug = false;
 		this.paused = false;
+
+		this._TIMECONST = 1000/60;
+	}
+
+	set TIMECONST(value) {
+		this._TIMECONST = parseFloat(value);
+	}
+
+	get TIMECONST() {
+		return this._TIMECONST;
 	}
 
 	setSize(width, height) {

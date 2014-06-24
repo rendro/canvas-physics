@@ -19,14 +19,18 @@ class Entity {
 		this.velocity = velocity;
 
 		this.mass = 1;
+
+		this.maxSpeed = Infinity;
 	}
 
 	tick(world) {
 		// apply all forces
-		world.forces.forEach((force) => force.applyTo(this));
+		world.forces.forEach((force) => force.applyTo(this, world));
+
+		this.velocity.limit(this.maxSpeed);
 
 		// move particle
-		this.position.add(this.velocity.clone().divide(10));
+		this.position.add(this.velocity.clone().divide(world.TIMECONST));
 
 		// check all constraints
 		world.constraints.forEach((constraint) => constraint.applyConstraint(world, this));

@@ -17,9 +17,7 @@ class Emitter extends Entity {
 		super(position);
 
 		this.lifecycle = 0;
-		if (this.ppt < 1) {
-			this.shouldEmit = 0;
-		}
+		this.shouldEmit = 0;
 	}
 
 	generateRandomVelocity() {
@@ -38,15 +36,14 @@ class Emitter extends Entity {
 			return;
 		}
 
-		if (this.ppt < 1 && this.shouldEmit < 1) {
-			this.shouldEmit += this.ppt;
-			return;
+		this.shouldEmit += this.ppt / world.TIMECONST;
 
+		if (this.shouldEmit < 1) {
+			return;
 		}
-		this.shouldEmit -= 1;
 
 		// does not move or is influenced by any forces or gravity but emits particles
-		for (let i = Math.max(this.ppt, 1); i > 0; --i) {
+		while(this.shouldEmit-- >= 1) {
 			let particleConstructor = this.particleTypeConstructors[Math.floor(this.particleTypeConstructors.length * Math.random())];
 			let position = this.position.clone();
 			let velocity = this.generateRandomDirection().multiply(this.generateRandomVelocity());
@@ -57,7 +54,7 @@ class Emitter extends Entity {
 
 	render(ctx) {
 		for (let i = 0; i < 3; i++) {
-			let lifecycle = ((i * 180/3 + this.lifecycle++) % 180) / 180;
+			let lifecycle = ((i * 300/3 + this.lifecycle++) % 300) / 300;
 			ctx.beginPath();
 			ctx.arc(this.position.x, this.position.y, this.radius * lifecycle, 0, Math.PI * 2, false);
 			ctx.closePath();
@@ -65,6 +62,8 @@ class Emitter extends Entity {
 			ctx.stroke();
 		}
 	}
+
+	renderForces() {}
 
 }
 

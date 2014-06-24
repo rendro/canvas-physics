@@ -6,8 +6,8 @@ class ConstantForce extends Force {
 		this.force = force;
 	}
 
-	applyTo(entity) {
-		entity.velocity.add(this.force.clone().divide(10));
+	applyTo(entity, world) {
+		entity.velocity.add(this.force.clone().divide(world.TIMECONST));
 	}
 
 	getForceForDebug() {

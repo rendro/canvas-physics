@@ -2,7 +2,7 @@ var Vec2D = require('../vec2d.js');
 
 class Force {
 
-	applyTo(entity) {}
+	applyTo(entity, world) {}
 
 	getForceForDebug() {
 		return new Vec2D(0, 0);

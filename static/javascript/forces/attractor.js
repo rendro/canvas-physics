@@ -5,20 +5,24 @@ class Attractor extends Force {
 	constructor(position, force) {
 		this.position = position;
 		this.force = force;
-		this.radius = Math.abs(this.force);
+		this.radius = Math.min(Math.max(Math.abs(this.force/100), 40), 100);
 		this.isAttractor = this.force > 0;
 		this.lifecycle = 10;
+		this.maxForce = 50;
 	}
 
-	applyTo(entity) {
-		let distance = this.position.clone().distance(entity.position);
-		let force = this.position.clone().subtract(entity.position).normalize().multiply(this.force).divide(10);
+	getForceForEntity(entity) {
+		// let distance = this.position.clone().distance(entity.position) / 50;
+		return this.position.clone().subtract(entity.position).normalize().multiply(this.force); // / (distance * distance)).limit(this.maxForce);
+	}
+
+	applyTo(entity, world) {
+		let force = this.getForceForEntity(entity).divide(world.TIMECONST);
 		entity.velocity.add(force);
 	}
 
 	getForceForDebug(entity) {
-		let distance = this.position.clone().distance(entity.position);
-		return this.position.clone().subtract(entity.position).normalize().multiply(this.force);
+		return this.getForceForEntity(entity);
 	}
 
 	render(ctx) {

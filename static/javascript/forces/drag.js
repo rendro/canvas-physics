@@ -6,8 +6,8 @@ class Drag extends Force {
 		this.drag = drag;
 	}
 
-	applyTo(entity) {
-		entity.velocity.multiply(1 - this.drag);
+	applyTo(entity, world) {
+		entity.velocity.multiply(1 - this.drag * 1000 / 60 / world.TIMECONST);
 	}
 }
 
