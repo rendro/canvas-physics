@@ -55,7 +55,7 @@ var circleConstructor = function(position, velocity) {
 };
 
 let e1 = new Emitter(new Vec2D(250, 180), 10, 0, 40, 10, 10, circleConstructor);
-let e2 = new Emitter(new Vec2D(700, 300), 10, -55, 100, 10, 30, circleConstructor);
+let e2 = new Emitter(new Vec2D(700, 300), 10, -45, 30, 10, 20, circleConstructor);
 let e3 = new Emitter(new Vec2D(300, 400), 10, 0, 90, 5, 10, circleConstructor);
 world.addEntity(e1);
 world.addEntity(e2);
