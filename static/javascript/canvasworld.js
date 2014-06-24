@@ -11,8 +11,10 @@ class CanvasWorld {
 		this.forces = [];
 		this.constraints = [];
 
-		this.gravity = new Vec2D(0, 0.1);
+		this.gravity = new Vec2D(0, 9.81);
 		this.drag = 0.001;
+
+		this.debug = false;
 	}
 
 	setSize(width, height) {
@@ -51,6 +53,9 @@ class CanvasWorld {
 	render() {
 		this.clearCanvas();
 		this.entities.forEach((entity) => entity.render(this.ctx));
+		if (this.debug) {
+			this.entities.forEach((entity) => entity.renderForces(this));
+		}
 	}
 
 	clearCanvas() {

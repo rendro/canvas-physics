@@ -2,6 +2,7 @@ var World = require('./CanvasWorld.js');
 var Vec2D = window.v = require('./vec2d.js');
 var EdgesConstraint = require('./constraints/edges.js');
 var DyingCircle = require('./entities/dyingcircle.js');
+var Circle = require('./entities/circle.js');
 
 var Emitter = require('./entities/emitter.js');
 
@@ -23,6 +24,11 @@ inversegravity.addEventListener('change', function() {
 	world.gravity.multiply(-1);
 });
 
+var debug = document.getElementById('debug');
+debug.addEventListener('change', function() {
+	world.debug = debug.checked;
+});
+
 var dyingCircleConstructor = function(position, velocity) {
 	let minRadius = 2;
 	let maxRadius = 7;
@@ -30,10 +36,11 @@ var dyingCircleConstructor = function(position, velocity) {
 	return new DyingCircle(position, velocity, r, 3);
 };
 
-world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 4, 90, 1, dyingCircleConstructor));
-world.addEntity(new Emitter(new Vec2D(700, 300), 1, -45, 4, 10, 1, dyingCircleConstructor));
-world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 7, 5, 1, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 40, 90, 10, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(700, 300), 1, -45, 40, 10, 10, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 70, 5, 10, dyingCircleConstructor));
 
+// world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 
 var count = document.getElementById('pcount');
 
