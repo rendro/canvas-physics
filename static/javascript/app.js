@@ -2,6 +2,7 @@ var World           = require('./CanvasWorld.js');
 var Vec2D           = require('./vec2d.js');
 var ConstantForce   = require('./forces/constant.js');
 var Drag            = require('./forces/drag.js');
+var Attractor       = require('./forces/attractor.js');
 var EdgesConstraint = require('./constraints/edges.js');
 var Circle          = require('./entities/circle.js');
 var DyingCircle     = require('./entities/dyingcircle.js');
@@ -31,6 +32,8 @@ world.addForce(wind);
 // drag
 world.addForce(new Drag(0.01));
 
+world.addForce(new Attractor(new Vec2D(500, 250), 50));
+
 
 var inversegravity = document.getElementById('inversegravity');
 inversegravity.addEventListener('change', function() {
@@ -49,7 +52,7 @@ var dyingCircleConstructor = function(position, velocity) {
 	return new DyingCircle(position, velocity, r, 3);
 };
 
-world.addEntity(new Emitter(new Vec2D(100, 100), 1, 0, 40, 180, 10, dyingCircleConstructor));
+world.addEntity(new Emitter(new Vec2D(250, 180), 1, 0, 40, 10, 10, dyingCircleConstructor));
 world.addEntity(new Emitter(new Vec2D(700, 300), 1, -45, 40, 10, 10, dyingCircleConstructor));
 world.addEntity(new Emitter(new Vec2D(300, 400), 1, 0, 90, 5, 10, dyingCircleConstructor));
 

@@ -40,7 +40,7 @@ class Entity {
 
 		// all forces
 		world.forces.forEach((force) => {
-			let vecForce = force.getForceForDebug();
+			let vecForce = force.getForceForDebug(this);
 			if (!vecForce.equals(emptyForce)) {
 				drawLine('rgba(0,0,255,.5)', this.position, vecForce, world.ctx);
 			}

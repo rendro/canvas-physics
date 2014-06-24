@@ -14,6 +14,8 @@ class ConstantForce extends Force {
 		return this.force;
 	}
 
+	render(ctx) {}
+
 }
 
 module.exports = ConstantForce;

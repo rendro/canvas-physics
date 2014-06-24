@@ -48,7 +48,11 @@ class CanvasWorld {
 
 	render() {
 		this.clearCanvas();
+
 		this.entities.forEach((entity) => entity.render(this.ctx));
+
+		this.forces.forEach((force) => force.render(this.ctx));
+
 		if (this.debug) {
 			this.entities.forEach((entity) => entity.renderForces(this));
 		}
