@@ -2,9 +2,10 @@
 	--white: #fff;
 	--black: #323232;
 	--gray-lighter: #f9f9f9;
+	--highlight: #405A74;
 }
 
-@import '../../node_modules/normalize.css/normalize.css';
+/*@import '../../node_modules/normalize.css/normalize.css';*/
 
 *{
 	box-sizing: border-box;
@@ -23,3 +24,44 @@ canvas {
 	display: block;
 	border: 2px solid var(--black);
 }
+
+
+.controls{
+	list-style: none;
+	padding: 0;
+}
+
+.controls li{
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.controls input[type=checkbox]{
+	display: inline-block;
+	height: 1em;
+	width: 1em;
+	box-sizing: border-box;
+	vertical-align: bottom;
+	border: 2px solid var(--white);
+	box-shadow: 0 0 0 1px var(--highlight);
+	border-radius: 100%;
+	outline: none;
+	-webkit-appearance: none;
+	transition: all .3s ease-out;
+}
+
+.controls input[type=checkbox]:checked{
+	background: var(--highlight);
+}
+
+.controls button{
+	padding: 5px 15px;
+	border: 2px solid var(--white);
+	border-radius: 3px;
+	box-shadow: 0 0 0 1px var(--highlight);
+	background: var(--highlight);
+	color: var(--white);
+	font-weight: bold;
+	outline: none;
+}
+

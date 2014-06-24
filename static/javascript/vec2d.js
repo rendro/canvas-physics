@@ -93,7 +93,7 @@ class Vec2D {
 	normalize() {
 		let mag = this.magnitude();
 		if (mag !== 0) {
-			this.div(mag);
+			this.divide(mag);
 		}
 		return this;
 	}

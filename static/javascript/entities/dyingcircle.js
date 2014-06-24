@@ -2,9 +2,9 @@ var Circle = require('./circle.js');
 
 class DyingCircle extends Circle {
 
-	constructor(position, velocity, radius) {
-		this.maxLifetime = 60 * 10;
-		this.lifetime = 60 * 10;
+	constructor(position, velocity, radius, lifetime=10) {
+		this.maxLifetime = 60 * lifetime;
+		this.lifetime = 60 * lifetime;
 		super(position, velocity, radius);
 	}
 
