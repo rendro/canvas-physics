@@ -1,3 +1,4 @@
+var UiElement       = require('./uielement.js');
 var World           = require('./CanvasWorld.js');
 var Vec2D           = require('./vec2d.js');
 var ConstantForce   = require('./forces/constant.js');
@@ -9,15 +10,9 @@ var Circle          = require('./entities/circle.js');
 var DyingCircle     = require('./entities/dyingcircle.js');
 var Emitter         = require('./entities/emitter.js');
 
-// pause checkbox
-var pausedCheckbox = document.getElementById('pause');
-var pause = false;
-pausedCheckbox.addEventListener('change', function() {
-	pause = pausedCheckbox.checked;
-});
 
-var canvas = document.getElementById('world');
-var world = new World(canvas);
+var world = new World(document.getElementById('world'));
+
 world.setSize(800, 500);
 
 world.addConstraint(new EdgesConstraint());
@@ -38,16 +33,6 @@ world.addForce(new Drag(0.01));
 
 //Absorber
 world.addForce(new Absorber(new Vec2D(50, 50), 30, world));
-
-var inversegravity = document.getElementById('inversegravity');
-inversegravity.addEventListener('change', function() {
-	world.forces[0].force.multiply(-1);
-});
-
-var debug = document.getElementById('debug');
-debug.addEventListener('change', function() {
-	world.debug = debug.checked;
-});
 
 var dyingCircleConstructor = function(position, velocity) {
 	let minRadius = 2;
@@ -71,12 +56,18 @@ var circleConstructor = function(position, velocity) {
 //Snipper Emitter
 world.addEntity(new Emitter(new Vec2D(700, 300), 1, -50, 100, 0, 10, circleConstructor));
 
+/**
+ * UI ELEMENTS FOR CONTROLS
+ */
+UiElement('#pause', 'change', (e) => world.paused = e.target.checked );
+UiElement('#inversegravity', 'change', () => gravity.force.multiply(-1));
+UiElement('#debug', 'change', (e) => world.debug = e.target.checked );
+
 
 var count = document.getElementById('pcount');
-
 // tick
 var tick = function() {
-	if (!pause) {
+	if (!world.paused) {
 		world.tick();
 		world.render();
 		count.value = world.entities.length;
@@ -84,8 +75,7 @@ var tick = function() {
 	requestAnimationFrame(tick);
 };
 
-var nextStep = document.getElementById('nextTick');
-nextStep.addEventListener('click', function() {
+UiElement('#nextTick', 'click', function() {
 	world.tick();
 	world.render();
 	count.value = world.entities.length;

@@ -11,6 +11,7 @@ class CanvasWorld {
 		this.forces = [];
 		this.constraints = [];
 		this.debug = false;
+		this.paused = false;
 	}
 
 	setSize(width, height) {
