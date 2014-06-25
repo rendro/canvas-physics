@@ -10,6 +10,7 @@ var ClearLost       = require('./constraints/clearlost.js');
 var Circle          = require('./entities/circle.js');
 var DyingCircle     = require('./entities/dyingcircle.js');
 var Emitter         = require('./entities/emitter.js');
+var ClickEmitter    = require('./entities/clickemitter.js');
 
 
 var world = new World(document.getElementById('world'));
@@ -60,14 +61,14 @@ var circleConstructor = function(position, velocity) {
 let e1 = new Emitter(new Vec2D(250, 180), 10, 110, 90, 20, 50, circleConstructor);
 // let e2 = new Emitter(new Vec2D(700, 300), 0.1, 0, 150, 10, 30, circleConstructor);
 // let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
-world.addEntity(e1);
+// world.addEntity(e1);
 // world.addEntity(e2);
 // world.addEntity(e3);
 // world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 
 //Sniper Emitter
 let sniperEmitter = new Emitter(new Vec2D(700, 300), 20, -60, 100, 20, 10, circleConstructor);
-world.addEntity(sniperEmitter);
+// world.addEntity(sniperEmitter);
 
 let uiControlableEmitter = [
 	sniperEmitter
@@ -75,6 +76,8 @@ let uiControlableEmitter = [
 	// , e2
 	// , e3
 ];
+
+world.addEntity(new ClickEmitter(world, circleConstructor));
 
 
 var count = document.getElementById('pcount');

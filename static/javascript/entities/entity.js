@@ -19,13 +19,18 @@ class Entity {
 		this.velocity = velocity;
 		this.mass = 1;
 		this.maxSpeed = Infinity;
+		this.frozen = false;
 	}
 
 	tick(world) {
+		if (this.frozen) {
+			return;
+		}
+
 		// apply all forces
 		world.forces.forEach((force) => force.applyTo(this, world));
 
-		// this.velocity.limit(this.maxSpeed);
+		this.velocity.limit(this.maxSpeed);
 
 		// move particle
 		this.position.add(this.velocity.clone().divide(world.animationFramesPerSecond));
