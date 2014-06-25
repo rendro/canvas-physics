@@ -6,6 +6,7 @@ var Drag            = require('./forces/drag.js');
 var Attractor       = require('./forces/attractor.js');
 var Absorber        = require('./forces/absorber.js');
 var EdgesConstraint = require('./constraints/edges.js');
+var ClearLost       = require('./constraints/clearlost.js');
 var Circle          = require('./entities/circle.js');
 var DyingCircle     = require('./entities/dyingcircle.js');
 var Emitter         = require('./entities/emitter.js');
@@ -16,6 +17,7 @@ var world = new World(document.getElementById('world'));
 world.setSize(800, 500);
 
 world.addConstraint(new EdgesConstraint());
+world.addConstraint(new ClearLost());
 
 // gravity
 let gravity = new ConstantForce(new Vec2D(0, 9.81));

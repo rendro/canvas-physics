@@ -30,7 +30,7 @@ class Vec2D {
 	 * @param {Number} x x-coordinate
 	 * @param {Number} y y-coordinate
 	 */
-	constructor(x, y) {
+	constructor(x=0, y=0) {
 		this.x = x;
 		this.y = y;
 	}
@@ -135,6 +135,10 @@ class Vec2D {
 	 */
 	equals(vec2d) {
 		return this.x === vec2d.x && this.y === vec2d.y;
+	}
+
+	inRect(x, y, width, height) {
+		return this.x > x && this.y > y && this.x < (x + width) && this.y < (y +height);
 	}
 
 	/**
