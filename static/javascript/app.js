@@ -25,18 +25,22 @@ let gravity = new ConstantForce(new Vec2D(0, 9.81));
 world.addForce(gravity);
 
 // wind
-let wind = new ConstantForce(new Vec2D(-5, 0));
+let wind = new ConstantForce(new Vec2D(0, 0));
 world.addForce(wind);
 
 // drag
 world.addForce(new Drag(0.01));
 
 // Attractor or Deflector
-world.addForce(new Attractor(new Vec2D(400, 210), -50));
-// world.addForce(new Attractor(new Vec2D(200, 250), 50));
+world.addForce(new Attractor(new Vec2D(400, 300), -50));
 
-//Absorber
-world.addForce(new Absorber(new Vec2D(50, 50), 500, 40));
+// world.addForce(new Attractor(new Vec2D(200, 300), 400));
+// world.addForce(new Attractor(new Vec2D(600, 300), 400));
+
+//CenterAbsorber
+world.addForce(new Absorber(new Vec2D(650, 320), 500, 40));
+world.addForce(new Absorber(new Vec2D(180, 340), 500, 40));
+
 
 // edge particle killer
 world.addForce(new Absorber(new Vec2D(0, 0), 3, 20));
@@ -61,19 +65,24 @@ var circleConstructor = function(position, velocity) {
 let e1 = new Emitter(new Vec2D(250, 180), 10, 110, 90, 20, 50, circleConstructor);
 let e2 = new Emitter(new Vec2D(700, 300), 0.1, 0, 150, 10, 30, circleConstructor);
 let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
-world.addEntity(e1);
+// world.addEntity(e1);
 // world.addEntity(e2);
 // world.addEntity(e3);
 
-//Sniper Emitter
-let sniperEmitter = new Emitter(new Vec2D(700, 300), 20, -60, 100, 20, 10, circleConstructor);
-world.addEntity(sniperEmitter);
+//Snipper Emitters
+let se1 = new Emitter(new Vec2D(200, 110), 3, -45, -200, 0, 0, circleConstructor);
+let se2 = new Emitter(new Vec2D(400, 160), 1, 0, 200, 0, 10, circleConstructor);
+let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor);
+world.addEntity(se1);
+world.addEntity(se2);
+world.addEntity(se3);
+
+// let uiControlableEmitter = [
+// 	e1, e2, e3
+// ];
 
 let uiControlableEmitter = [
-	sniperEmitter
-	, e1
-	// , e2
-	// , e3
+	se1, se2, se3
 ];
 
 world.addEntity(new ClickEmitter(world, circleConstructor));
@@ -103,6 +112,7 @@ UiElement('#inversegravity', 'change', () => gravity.force.multiply(-1));
 UiElement('#debug', 'change', (e) => world.debug = e.target.checked );
 UiElement('#pauseemitter', 'change', (e) => uiControlableEmitter.forEach((em) => em.paused = e.target.checked));
 UiElement('#timewarp', 'change', (e) => world.animationFramesPerSecond = parseFloat(e.target.value));
+UiElement('#windstrength', 'change', (e) => wind.force = new Vec2D(e.target.value, 0));
 UiElement('#nextTick', 'click', () => world.paused && tick());
 
 // run

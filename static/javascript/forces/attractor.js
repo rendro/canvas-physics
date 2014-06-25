@@ -42,7 +42,11 @@ class Attractor extends Force {
 			ctx.arc(this.position.x, this.position.y, this.radius * 2 * (1 - lifecycle), 0, Math.PI * 2, false);
 			ctx.closePath();
 			ctx.lineWidth = 2;
-			ctx.strokeStyle = `rgba(0,0,255,${lifecycle})`;
+			if(this.force < 0) {
+				ctx.strokeStyle = `rgba(0,0,255,${lifecycle})`;
+			} else{
+				ctx.strokeStyle = `rgba(0,255,0,${lifecycle})`;
+			}
 			ctx.stroke();
 		}
 	}
