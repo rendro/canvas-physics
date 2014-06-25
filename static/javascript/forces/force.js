@@ -5,7 +5,7 @@ class Force {
 	applyTo(entity, world) {}
 
 	getForceForDebug() {
-		return new Vec2D(0, 0);
+		return new Vec2D();
 	}
 
 	render(ctx) {}

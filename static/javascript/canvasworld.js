@@ -13,15 +13,7 @@ class CanvasWorld {
 		this.debug = false;
 		this.paused = false;
 
-		this._TIMECONST = 1000/60;
-	}
-
-	set TIMECONST(value) {
-		this._TIMECONST = parseFloat(value);
-	}
-
-	get TIMECONST() {
-		return this._TIMECONST;
+		this.animationFramesPerSecond = 1000/60;
 	}
 
 	setSize(width, height) {

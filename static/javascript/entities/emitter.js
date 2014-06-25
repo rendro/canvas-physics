@@ -36,7 +36,7 @@ class Emitter extends Entity {
 			return;
 		}
 
-		this.shouldEmit += this.ppt / world.TIMECONST;
+		this.shouldEmit += this.ppt / world.animationFramesPerSecond;
 
 		if (this.shouldEmit < 1) {
 			return;

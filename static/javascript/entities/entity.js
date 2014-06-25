@@ -17,9 +17,7 @@ class Entity {
 	constructor(position = new Vec2D(), velocity = new Vec2D()) {
 		this.position = position;
 		this.velocity = velocity;
-
 		this.mass = 1;
-
 		this.maxSpeed = Infinity;
 	}
 
@@ -27,10 +25,10 @@ class Entity {
 		// apply all forces
 		world.forces.forEach((force) => force.applyTo(this, world));
 
-		this.velocity.limit(this.maxSpeed);
+		// this.velocity.limit(this.maxSpeed);
 
 		// move particle
-		this.position.add(this.velocity.clone().divide(world.TIMECONST));
+		this.position.add(this.velocity.clone().divide(world.animationFramesPerSecond));
 
 		// check all constraints
 		world.constraints.forEach((constraint) => constraint.applyConstraint(world, this));

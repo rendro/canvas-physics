@@ -22,7 +22,7 @@ class Absorber extends Force {
 			return;
 		}
 
-		let force = this.getForceForEntity(entity).divide(world.TIMECONST);
+		let force = this.getForceForEntity(entity).divide(world.animationFramesPerSecond);
 		entity.velocity.add(force);
 	}
 

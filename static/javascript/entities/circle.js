@@ -4,6 +4,7 @@ class Circle extends Entity {
 
 	constructor(position, velocity, radius) {
 		this.radius = radius;
+		this.mass = radius;
 		super(position, velocity);
 	}
 

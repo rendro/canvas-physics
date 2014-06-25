@@ -1,28 +1,32 @@
 var Force = require('./force.js');
+var Vec2D = require('../vec2d.js');
 
 class Attractor extends Force {
 
 	constructor(position, force) {
 		this.position = position;
-		this.force = force;
-		this.radius = Math.min(Math.max(Math.abs(this.force/100), 40), 100);
-		this.isAttractor = this.force > 0;
+		this.force = force * 1e3;
+		this.radius = Math.min(Math.max(Math.abs(force/100), 40), 100);
 		this.lifecycle = 10;
-		this.maxForce = 50;
 	}
 
-	getForceForEntity(entity) {
-		// let distance = this.position.clone().distance(entity.position) / 50;
-		return this.position.clone().subtract(entity.position).normalize().multiply(this.force); // / (distance * distance)).limit(this.maxForce);
+	getForceAtPosition(entityPosition) {
+		let distance = this.position.clone().distance(entityPosition);
+		return this.position.clone().subtract(entityPosition).normalize().multiply(this.force / (distance * distance));
 	}
 
 	applyTo(entity, world) {
-		let force = this.getForceForEntity(entity).divide(world.TIMECONST);
-		entity.velocity.add(force);
+		let integrationSteps = 8;
+		let pos = entity.position.clone();
+		let force = new Vec2D();
+		for (let i = 0; i < integrationSteps; ++i) {
+			force.add(this.getForceAtPosition(pos).divide(integrationSteps));
+		}
+		entity.velocity.add(force.divide(entity.mass).divide(world.animationFramesPerSecond));
 	}
 
 	getForceForDebug(entity) {
-		return this.getForceForEntity(entity);
+		return this.getForceAtPosition(entity.position);
 	}
 
 	render(ctx) {
@@ -30,7 +34,7 @@ class Attractor extends Force {
 		for (let i = 0; i < numOfCircles; i++) {
 			let lifecycle = ((i * 180/numOfCircles + this.lifecycle++) % 180) / 180;
 
-			if (!this.isAttractor) {
+			if (this.force < 0) {
 				lifecycle = 1 - lifecycle;
 			}
 
