@@ -30,13 +30,12 @@ world.addForce(wind);
 // drag
 world.addForce(new Drag(0.01));
 
-//Attractor
-world.addForce(new Attractor(new Vec2D(200, 350), -100));
+// Attractor or Deflector
+world.addForce(new Attractor(new Vec2D(400, 210), -50));
 // world.addForce(new Attractor(new Vec2D(200, 250), 50));
 
 //Absorber
-// world.addForce(new Absorber(new Vec2D(200, 250), 0, 3));
-// world.addForce(new Absorber(new Vec2D(50, 50), 50, 40));
+world.addForce(new Absorber(new Vec2D(50, 50), 500, 40));
 
 // edge particle killer
 world.addForce(new Absorber(new Vec2D(0, 0), 3, 20));
@@ -58,21 +57,21 @@ var circleConstructor = function(position, velocity) {
 	return new Circle(position, velocity, r);
 };
 
-// let e1 = new Emitter(new Vec2D(250, 180), 0, 0, 40, 10, 10, circleConstructor);
+let e1 = new Emitter(new Vec2D(250, 180), 10, 110, 90, 20, 50, circleConstructor);
 // let e2 = new Emitter(new Vec2D(700, 300), 0.1, 0, 150, 10, 30, circleConstructor);
 // let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
-// world.addEntity(e1);
+world.addEntity(e1);
 // world.addEntity(e2);
 // world.addEntity(e3);
 // world.addEntity(new Circle(new Vec2D(100, 100), new Vec2D(50, -40), 5));
 
 //Sniper Emitter
-let sniperEmitter = new Emitter(new Vec2D(700, 300), 1, -60, 100, 20, 10, circleConstructor);
+let sniperEmitter = new Emitter(new Vec2D(700, 300), 20, -60, 100, 20, 10, circleConstructor);
 world.addEntity(sniperEmitter);
 
 let uiControlableEmitter = [
 	sniperEmitter
-	// , e1
+	, e1
 	// , e2
 	// , e3
 ];
