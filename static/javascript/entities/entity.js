@@ -33,7 +33,7 @@ class Entity {
 		this.velocity.limit(this.maxSpeed);
 
 		// move particle
-		this.position.add(this.velocity.clone().divide(world.animationFramesPerSecond));
+		this.position.add(this.velocity.clone().divide(world.timePerAnimFrame));
 
 		// check all constraints
 		world.constraints.forEach((constraint) => constraint.applyConstraint(world, this));

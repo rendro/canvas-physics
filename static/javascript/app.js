@@ -1,4 +1,5 @@
-var UiElement       = require('./uielement.js');
+var dat = require('./ext/dat.gui.js');
+
 var World           = require('./CanvasWorld.js');
 var Vec2D           = require('./vec2d.js');
 
@@ -91,34 +92,25 @@ let uiControlableEmitter = [
 world.addEntity(new ClickEmitter(world, orbConstructor));
 
 
-var count = document.getElementById('pcount');
-var animationFramesPerSecond = document.getElementById('animationFramesPerSecond');
-// tick
-var tick = function() {
-	world.tick();
-	world.render();
-	count.value = world.entities.length;
-	animationFramesPerSecond.innerHTML = world.animationFramesPerSecond.toFixed(2);
-	if (!world.paused) {
-		requestAnimationFrame(tick);
-	}
-};
+world.loop();
 
-/**
- * UI ELEMENTS FOR CONTROLS
- */
-UiElement('#pause', 'change', function(e){
-	world.paused = e.target.checked;
-	!world.paused && tick();
-});
-UiElement('#inversegravity', 'change', () => gravity.force.multiply(-1));
-UiElement('#debug', 'change', (e) => world.debug = e.target.checked );
-UiElement('#pauseemitter', 'change', (e) => uiControlableEmitter.forEach((em) => em.paused = e.target.checked));
-UiElement('#timewarp', 'input', (e) => world.animationFramesPerSecond = parseFloat(e.target.value));
-UiElement('#scale', 'input', (e) => world.scale = parseFloat(e.target.value));
-UiElement('#rotate', 'input', (e) => world.rotate = parseFloat(e.target.value));
-UiElement('#windstrength', 'input', (e) => wind.force = new Vec2D(e.target.value, 0));
-UiElement('#nextTick', 'click', () => world.paused && tick());
 
-// run
-tick();
+// GUI
+var gui = new dat.GUI();
+
+var f1 = gui.addFolder('World');
+f1.add(world, 'scale', 0, 2);
+f1.add(world, 'rotate', 0, 360);
+f1.add(world, 'paused');
+f1.add(world, 'debug');
+f1.add(world, 'timePerAnimFrame', 1000/60, 200);
+
+f1.open();
+
+var f2 = gui.addFolder('Gravity');
+f2.add(gravity, 'invert');
+
+var f2 = gui.addFolder('Wind');
+f2.add(wind, 'invert');
+
+

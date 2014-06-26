@@ -22,7 +22,7 @@ class Attractor extends Force {
 		for (let i = 0; i < integrationSteps; ++i) {
 			force.add(this.getForceAtPosition(pos).divide(integrationSteps));
 		}
-		entity.velocity.add(force.divide(entity.mass).divide(world.animationFramesPerSecond));
+		entity.velocity.add(force.divide(entity.mass).divide(world.timePerAnimFrame));
 	}
 
 	getForceForDebug(entity) {

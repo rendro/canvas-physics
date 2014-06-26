@@ -23,7 +23,7 @@ class OrbParticle extends Circle {
 			this.velocity.multiply(-1);
 		}
 		this.velocity.rotate(2 * Math.PI / 180);
-		this.delta.add(this.velocity.clone().divide(world.animationFramesPerSecond));
+		this.delta.add(this.velocity.clone().divide(world.timePerAnimFrame));
 	}
 
 	render(ctx) {

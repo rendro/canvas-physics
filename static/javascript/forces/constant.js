@@ -6,8 +6,12 @@ class ConstantForce extends Force {
 		this.force = force;
 	}
 
+	invert() {
+		this.force.multiply(-1);
+	}
+
 	applyTo(entity, world) {
-		entity.velocity.add(this.force.clone().divide(world.animationFramesPerSecond));
+		entity.velocity.add(this.force.clone().divide(world.timePerAnimFrame));
 	}
 
 	getForceForDebug() {

@@ -16,7 +16,7 @@ class CanvasWorld {
 		this.scale = 1;
 		this.rotate = 0;
 
-		this.animationFramesPerSecond = 1000/60;
+		this.timePerAnimFrame = 1000/60;
 	}
 
 	setSize(width, height) {
@@ -50,6 +50,17 @@ class CanvasWorld {
 
 	tick() {
 		this.entities.forEach((entity) => entity.tick(this));
+	}
+
+	loop() {
+		requestAnimationFrame(this.loop.bind(this));
+
+		if (this.paused) {
+			return;
+		}
+
+		this.tick();
+		this.render();
 	}
 
 	render() {
