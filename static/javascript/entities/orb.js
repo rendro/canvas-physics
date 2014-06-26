@@ -14,11 +14,13 @@ class OrbParticle extends Circle {
 
 	constructor(orb) {
 		super(orb.position, orb.velocity, 2);
+		this._x = new Vec2D(0,0);
 		this.x = new Vec2D(0,0);
 	}
 
-	tick() {
-		this.x.add(new Vec2D(1 - 2 * Math.random(), 1 - 2 * Math.random())).limit(20);
+	tick(world) {
+		this._x.add(new Vec2D(1 - 2 * Math.random(), 1 - 2 * Math.random()).divide(world.animationFramesPerSecond));
+		this.x.add(this._x).limit(20);
 	}
 
 	render(ctx) {
