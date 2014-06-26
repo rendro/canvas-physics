@@ -80,9 +80,9 @@ let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
 let se1 = new Emitter(new Vec2D(200, 110), 3, -45, -200, 0, 0, circleConstructor);
 let se2 = new Emitter(new Vec2D(400, 160), 1, 0, 200, 0, 10, orbConstructor);
 let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor);
-// world.addEntity(se1);
+world.addEntity(se1);
 world.addEntity(se2);
-// world.addEntity(se3);
+world.addEntity(se3);
 
 let uiControlableEmitter = [
 	se1, se2, se3, e1, e2, e3
@@ -119,4 +119,4 @@ UiElement('#windstrength', 'change', (e) => wind.force = new Vec2D(e.target.valu
 UiElement('#nextTick', 'click', () => world.paused && tick());
 
 // run
-// tick();
+tick();
