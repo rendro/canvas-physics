@@ -114,8 +114,10 @@ UiElement('#pause', 'change', function(e){
 UiElement('#inversegravity', 'change', () => gravity.force.multiply(-1));
 UiElement('#debug', 'change', (e) => world.debug = e.target.checked );
 UiElement('#pauseemitter', 'change', (e) => uiControlableEmitter.forEach((em) => em.paused = e.target.checked));
-UiElement('#timewarp', 'change', (e) => world.animationFramesPerSecond = parseFloat(e.target.value));
-UiElement('#windstrength', 'change', (e) => wind.force = new Vec2D(e.target.value, 0));
+UiElement('#timewarp', 'input', (e) => world.animationFramesPerSecond = parseFloat(e.target.value));
+UiElement('#scale', 'input', (e) => world.scale = parseFloat(e.target.value));
+UiElement('#rotate', 'input', (e) => world.rotate = parseFloat(e.target.value));
+UiElement('#windstrength', 'input', (e) => wind.force = new Vec2D(e.target.value, 0));
 UiElement('#nextTick', 'click', () => world.paused && tick());
 
 // run

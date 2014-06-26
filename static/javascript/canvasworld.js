@@ -13,6 +13,9 @@ class CanvasWorld {
 		this.debug = false;
 		this.paused = false;
 
+		this.scale = 1;
+		this.rotate = 0;
+
 		this.animationFramesPerSecond = 1000/60;
 	}
 
@@ -52,6 +55,12 @@ class CanvasWorld {
 	render() {
 		this.clearCanvas();
 
+		this.ctx.save();
+		this.ctx.translate(this.width/2, this.height/2);
+		this.ctx.rotate(this.rotate * Math.PI / 180);
+		this.ctx.scale(this.scale, this.scale);
+		this.ctx.translate(-this.width/2, -this.height/2);
+
 		this.entities.forEach((entity) => entity.render(this.ctx));
 
 		this.forces.forEach((force) => force.render(this.ctx));
@@ -59,6 +68,8 @@ class CanvasWorld {
 		if (this.debug) {
 			this.entities.forEach((entity) => entity.renderForces(this));
 		}
+
+		this.ctx.restore();
 	}
 
 	clearCanvas() {
