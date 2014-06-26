@@ -15,13 +15,14 @@ class Vec2D {
 	}
 
 	/**
-	 * Create a new vector from the subtraction of n vectors
+	 * Create a new vector from the subtraction of n vectors of a vector
+	 * @param  {Vec2D} vec2d  First Vector
 	 * @param  {Vec2D} vec2ds Vectors
 	 * @return {Vec2D}        Subtracted vector
 	 */
-	static diff(...vec2ds) {
-		let x = vec2ds.reduce((cur, vec) => cur - vec.x, 0);
-		let y = vec2ds.reduce((cur, vec) => cur - vec.y, 0);
+	static diff(vec2d, ...vec2ds) {
+		let x = vec2ds.reduce((cur, vec) => cur - vec.x, vec2d.x);
+		let y = vec2ds.reduce((cur, vec) => cur - vec.y, vec2d.y);
 		return new Vec2D(x, y);
 	}
 

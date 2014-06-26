@@ -1,16 +1,20 @@
 var UiElement       = require('./uielement.js');
 var World           = require('./CanvasWorld.js');
 var Vec2D           = require('./vec2d.js');
+
 var ConstantForce   = require('./forces/constant.js');
 var Drag            = require('./forces/drag.js');
 var Attractor       = require('./forces/attractor.js');
 var Absorber        = require('./forces/absorber.js');
+
 var EdgesConstraint = require('./constraints/edges.js');
 var ClearLost       = require('./constraints/clearlost.js');
+
 var Circle          = require('./entities/circle.js');
 var DyingCircle     = require('./entities/dyingcircle.js');
 var Emitter         = require('./entities/emitter.js');
 var ClickEmitter    = require('./entities/clickemitter.js');
+var Orb             = require('./entities/orb.js');
 
 
 var world = new World(document.getElementById('world'));
@@ -22,7 +26,7 @@ world.addConstraint(new ClearLost());
 
 // gravity
 let gravity = new ConstantForce(new Vec2D(0, 9.81));
-world.addForce(gravity);
+// world.addForce(gravity);
 
 // wind
 let wind = new ConstantForce(new Vec2D(0, 0));
@@ -40,7 +44,6 @@ world.addForce(new Attractor(new Vec2D(400, 300), -50));
 //CenterAbsorber
 world.addForce(new Absorber(new Vec2D(650, 320), 500, 40));
 world.addForce(new Absorber(new Vec2D(180, 340), 500, 40));
-
 
 // edge particle killer
 world.addForce(new Absorber(new Vec2D(0, 0), 3, 20));
@@ -62,6 +65,10 @@ var circleConstructor = function(position, velocity) {
 	return new Circle(position, velocity, r);
 };
 
+var orbConstructor = function(position, velocity) {
+	return new Orb(position, velocity);
+};
+
 let e1 = new Emitter(new Vec2D(250, 180), 10, 110, 90, 20, 50, circleConstructor);
 let e2 = new Emitter(new Vec2D(700, 300), 0.1, 0, 150, 10, 30, circleConstructor);
 let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
@@ -71,21 +78,17 @@ let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
 
 //Snipper Emitters
 let se1 = new Emitter(new Vec2D(200, 110), 3, -45, -200, 0, 0, circleConstructor);
-let se2 = new Emitter(new Vec2D(400, 160), 1, 0, 200, 0, 10, circleConstructor);
+let se2 = new Emitter(new Vec2D(400, 160), 1, 0, 200, 0, 10, orbConstructor);
 let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor);
-world.addEntity(se1);
+// world.addEntity(se1);
 world.addEntity(se2);
-world.addEntity(se3);
-
-// let uiControlableEmitter = [
-// 	e1, e2, e3
-// ];
+// world.addEntity(se3);
 
 let uiControlableEmitter = [
-	se1, se2, se3
+	se1, se2, se3, e1, e2, e3
 ];
 
-world.addEntity(new ClickEmitter(world, circleConstructor));
+world.addEntity(new ClickEmitter(world, orbConstructor));
 
 
 var count = document.getElementById('pcount');
@@ -116,4 +119,4 @@ UiElement('#windstrength', 'change', (e) => wind.force = new Vec2D(e.target.valu
 UiElement('#nextTick', 'click', () => world.paused && tick());
 
 // run
-tick();
+// tick();
