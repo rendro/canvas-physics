@@ -157,6 +157,33 @@ class Vec2D {
 	toString() {
 		return `[${this.x},${this.y}]`;
 	}
+
+	valueOf() {
+		if (!Vec2D.operands) {
+			Vec2D.operands = [];
+		}
+		Vec2D.operands.push(this);
+		return 3;
+	}
+
+	set _(value) {
+		let operator;
+		let operands = Vec2D.operands;
+
+		if (value <= 0) { // -
+			operator = Vec2D.diff;
+		} else if (value === 3 * operands.length) { // +
+			operator = Vec2D.sum;
+		} else {
+			throw new Error(`Unsupported operation (code ${value})`);
+		}
+
+		Vec2D.operands = [];
+		let result = operator.apply(this, operands);
+
+		this.x = result.x;
+		this.y = result.y;
+	}
 }
 
 module.exports = Vec2D;
