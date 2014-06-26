@@ -5,7 +5,8 @@ class Absorber extends Attractor {
 	constructor(position, force, radius) {
 		super(position, force);
 		this.radius = radius;
-		this.opacity = 1;
+		this.growthFactor = 0;
+		this.size = this.radius;
 	}
 
 	applyTo(entity, world) {
@@ -15,17 +16,23 @@ class Absorber extends Attractor {
 
 		if(distance <= this.radius){
 			world.removeEntity(entity);
-			this.opacity *= 0.1;
+			this.size = this.radius+this.growthFactor;
+
+			if(this.size > 50){
+				this.size = this.radius;
+				this.growthFactor = 0;
+			}
+
+			this.growthFactor += 0.4;
 		}
 	}
 
 	render(ctx) {
 		ctx.beginPath();
-		ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
+		ctx.arc(this.position.x, this.position.y, this.size, 0, Math.PI * 2, false);
 		ctx.closePath();
-		ctx.fillStyle = 'rgba(0,0,0,' + this.opacity + ')';
+		ctx.fillStyle = 'rgba(44, 62, 80, 1.0)';
 		ctx.fill();
-		this.opacity = 1;
 	}
 }
 

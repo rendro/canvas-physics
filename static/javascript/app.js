@@ -43,8 +43,8 @@ world.addForce(new Attractor(new Vec2D(400, 300), -50));
 // world.addForce(new Attractor(new Vec2D(600, 300), 400));
 
 //CenterAbsorber
-world.addForce(new Absorber(new Vec2D(650, 320), 500, 40));
-world.addForce(new Absorber(new Vec2D(180, 340), 500, 40));
+world.addForce(new Absorber(new Vec2D(650, 320), 500, 10));
+world.addForce(new Absorber(new Vec2D(180, 340), 500, 10));
 
 // edge particle killer
 world.addForce(new Absorber(new Vec2D(0, 0), 3, 20));
@@ -79,11 +79,11 @@ let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
 
 //Snipper Emitters
 let se1 = new Emitter(new Vec2D(200, 110), 3, -45, -200, 0, 0, circleConstructor);
-let se2 = new Emitter(new Vec2D(400, 160), 1, 0, 200, 0, 10, orbConstructor);
+let se2 = new Emitter(new Vec2D(400, 160), 5, 20, 50, 100, 0, orbConstructor);
 let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor);
-world.addEntity(se1);
+// world.addEntity(se1);
 world.addEntity(se2);
-world.addEntity(se3);
+// world.addEntity(se3);
 
 let uiControlableEmitter = [
 	se1, se2, se3, e1, e2, e3
