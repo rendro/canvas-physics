@@ -12,19 +12,22 @@ var drawCircle = function(ctx, pos, r, color='#000') {
 
 class OrbParticle extends Circle {
 
-	constructor(orb) {
+	constructor(orb, idx, num) {
 		super(orb.position, orb.velocity, 2);
-		this._x = new Vec2D(0,0);
-		this.x = new Vec2D(0,0);
+		this.velocity = new Vec2D(Math.sin(2 * Math.PI * idx / num), Math.cos(2 * Math.PI * idx / num)).normalize().multiply(3);
+		this.delta = new Vec2D();
 	}
 
 	tick(world) {
-		this._x.add(new Vec2D(1 - 2 * Math.random(), 1 - 2 * Math.random()).divide(world.animationFramesPerSecond));
-		this.x.add(this._x).limit(20);
+		if (this.delta.magnitude() > 15) {
+			this.velocity.multiply(-1);
+		}
+		this.velocity.rotate(2 * Math.PI / 180);
+		this.delta.add(this.velocity.clone().divide(world.animationFramesPerSecond));
 	}
 
 	render(ctx) {
-		drawCircle(ctx, Vec2D.sum(this.position, this.x), 2, '#be2221');
+		drawCircle(ctx, Vec2D.sum(this.position, this.delta), 2, '#be2221');
 	}
 
 	renderForces() {}
@@ -36,7 +39,7 @@ class Orb extends Circle {
 	constructor(position, velocity, radius) {
 		super(position, velocity, radius);
 		this.mass = 1;
-		this.particles = [1,2,3,4,5,6,7].map((i) => new OrbParticle(this));
+		this.particles = [0,1,2,3,4,5,6,7].map((i) => new OrbParticle(this, i, 8));
 	}
 
 	tick(world) {
@@ -45,8 +48,8 @@ class Orb extends Circle {
 	}
 
 	render(ctx) {
-		drawCircle(ctx, this.position, 5);
 		this.particles.forEach((p) => p.render(ctx));
+		drawCircle(ctx, this.position, 5);
 	}
 }
 

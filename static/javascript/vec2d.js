@@ -114,6 +114,12 @@ class Vec2D {
 		return Math.atan2(this.y, this.x);
 	}
 
+	rotate(rad) {
+		let [sin, cos, x, y] = [Math.sin(rad), Math.cos(rad), this.x, this.y];
+		this.x = x * cos - y * sin;
+		this.y = x * sin + y * cos;
+	}
+
 	/**
 	 * Calculate the dot product this vector with another vector
 	 * @return {Number} Dot product
