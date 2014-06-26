@@ -26,7 +26,7 @@ world.addConstraint(new ClearLost());
 
 // gravity
 let gravity = new ConstantForce(new Vec2D(0, 9.81));
-// world.addForce(gravity);
+world.addForce(gravity);
 
 // wind
 let wind = new ConstantForce(new Vec2D(0, 0));
