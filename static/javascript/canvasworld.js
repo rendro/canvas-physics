@@ -10,13 +10,22 @@ class CanvasWorld {
 		this.entities = [];
 		this.forces = [];
 		this.constraints = [];
-		this.debug = false;
+		this._debug = false;
 		this.paused = false;
 
 		this.scale = 1;
 		this.rotate = 0;
 
 		this.timePerAnimFrame = 1000/60;
+	}
+
+	set debug(v) {
+		this._debug = v;
+		this.render();
+	}
+
+	get debug() {
+		return this._debug;
 	}
 
 	setSize(width, height) {
@@ -59,6 +68,10 @@ class CanvasWorld {
 			return;
 		}
 
+		this.frame();
+	}
+
+	frame() {
 		this.tick();
 		this.render();
 	}

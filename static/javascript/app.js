@@ -35,7 +35,8 @@ wind.active = false;
 world.addForce(wind);
 
 // drag
-world.addForce(new Drag(0.01));
+let drag = new Drag(0.01);
+world.addForce(drag);
 
 // Attractor or Deflector
 world.addForce(new Attractor(new Vec2D(400, 300), -50));
@@ -74,17 +75,17 @@ var orbConstructor = function(position, velocity) {
 let e1 = new Emitter(new Vec2D(250, 180), 10, 110, 90, 20, 50, circleConstructor);
 let e2 = new Emitter(new Vec2D(700, 300), 0.1, 0, 150, 10, 30, circleConstructor);
 let e3 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, circleConstructor);
-// world.addEntity(e1);
-// world.addEntity(e2);
-// world.addEntity(e3);
+world.addEntity(e1);
+world.addEntity(e2);
+world.addEntity(e3);
 
 //Snipper Emitters
 let se1 = new Emitter(new Vec2D(200, 110), 3, -45, -200, 0, 0, circleConstructor);
-let se2 = new Emitter(new Vec2D(400, 160), 5, 20, 50, 100, 0, orbConstructor);
+let se2 = new Emitter(new Vec2D(400, 160), 5, 20, 50, 100, 0, circleConstructor);
 let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor);
-// world.addEntity(se1);
+world.addEntity(se1);
 world.addEntity(se2);
-// world.addEntity(se3);
+world.addEntity(se3);
 
 class EmitterController {
 
@@ -120,22 +121,26 @@ world.loop();
 // GUI
 var gui = new dat.GUI();
 
-var f1 = gui.addFolder('World');
-f1.add(world, 'scale', 0, 2);
-f1.add(world, 'rotate', 0, 360);
-f1.add(world, 'paused');
-f1.add(world, 'debug');
-f1.add(world, 'timePerAnimFrame', 1000/60, 200);
+var worldGui = gui.addFolder('World');
+worldGui.add(world, 'scale', 0, 2);
+worldGui.add(world, 'rotate', 0, 360);
+worldGui.add(world, 'paused');
+worldGui.add(world, 'debug');
+worldGui.add(world, 'frame');
+worldGui.add(world, 'timePerAnimFrame', 1000/60, 200);
 
-var f2 = gui.addFolder('Gravity');
-f2.add(gravity, 'magnitude', 0, 100);
-f2.add(gravity, 'active');
-f2.add(gravity, 'invert');
+var gavityGui = gui.addFolder('Gravity');
+gavityGui.add(gravity, 'magnitude', 0, 100);
+gavityGui.add(gravity, 'active');
+gavityGui.add(gravity, 'invert');
 
-var f2 = gui.addFolder('Wind');
-f2.add(wind, 'magnitude', 0, 100);
-f2.add(wind, 'active');
-f2.add(wind, 'invert');
+var windGui = gui.addFolder('Wind');
+windGui.add(wind, 'magnitude', 0, 100);
+windGui.add(wind, 'active');
+windGui.add(wind, 'invert');
 
-var f3 = gui.addFolder('Emitter');
-f3.add(emitterController, 'emit');
+var dragGui = gui.addFolder('Drag');
+dragGui.add(drag, 'drag', 0, 1);
+
+var emitterGui = gui.addFolder('Emitter');
+emitterGui.add(emitterController, 'emit');
