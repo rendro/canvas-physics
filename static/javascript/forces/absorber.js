@@ -5,8 +5,12 @@ class Absorber extends Attractor {
 	constructor(position, force, radius) {
 		super(position, force);
 		this.radius = radius;
-		this.growthFactor = 0;
-		this.size = this.radius;
+		this.size = radius;
+
+		this.growthFactor = 0.4;
+		this.maxSize = 50;
+
+		this.shrink = false;
 	}
 
 	applyTo(entity, world) {
@@ -14,20 +18,26 @@ class Absorber extends Attractor {
 
 		let distance = this.position.clone().distance(entity.position);
 
-		if(distance <= this.radius){
+		if(distance <= this.size){
 			world.removeEntity(entity);
-			this.size = this.radius+this.growthFactor;
+			this.size += this.growthFactor;
 
-			if(this.size > 50){
-				this.size = this.radius;
-				this.growthFactor = 0;
+			if (this.size > this.maxSize){
+				this.shrink = true;
 			}
-
-			this.growthFactor += 0.4;
 		}
 	}
 
 	render(ctx) {
+
+		if (this.size < this.radius){
+			this.shrink = false;
+		}
+
+		if (this.shrink) {
+			this.size *= 0.9;
+		}
+
 		ctx.beginPath();
 		ctx.arc(this.position.x, this.position.y, this.size, 0, Math.PI * 2, false);
 		ctx.closePath();
