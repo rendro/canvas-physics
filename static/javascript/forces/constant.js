@@ -3,19 +3,29 @@ var Force = require('./force.js');
 class ConstantForce extends Force {
 
 	constructor(force) {
-		this.force = force;
+		this.magnitude = force.magnitude();
+		this.direction = force.normalize();
+
+		this.active = true;
 	}
 
 	invert() {
-		this.force.multiply(-1);
+		this.direction.multiply(-1);
 	}
 
 	applyTo(entity, world) {
-		entity.velocity.add(this.force.clone().divide(world.timePerAnimFrame));
+		if (!this.active) {
+			return;
+		}
+		entity.velocity.add(this.getForce().divide(world.timePerAnimFrame));
+	}
+
+	getForce() {
+		return this.direction.clone().multiply(this.magnitude);
 	}
 
 	getForceForDebug() {
-		return this.force;
+		return this.getForce();
 	}
 
 	render(ctx) {}

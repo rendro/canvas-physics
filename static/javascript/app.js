@@ -30,7 +30,8 @@ let gravity = new ConstantForce(new Vec2D(0, 9.81));
 world.addForce(gravity);
 
 // wind
-let wind = new ConstantForce(new Vec2D(0, 0));
+let wind = new ConstantForce(new Vec2D(10, 0));
+wind.active = false;
 world.addForce(wind);
 
 // drag
@@ -85,12 +86,33 @@ let se3 = new Emitter(new Vec2D(600, 120), 3, 45, -200, 0, 10, circleConstructor
 world.addEntity(se2);
 // world.addEntity(se3);
 
-let uiControlableEmitter = [
-	se1, se2, se3, e1, e2, e3
-];
+class EmitterController {
+
+	constructor() {
+		this.emitter = [];
+		this._emit = true;
+	}
+
+	set emit(value) {
+		this.emitter.forEach((e) => e.paused = !value);
+		this._emit = value;
+	}
+
+	get emit() {
+		return this._emit;
+	}
+
+	addEmitter(...emitter) {
+		emitter.forEach((e) => this.emitter.push(e));
+	}
+
+}
+
+var emitterController = new EmitterController();
+
+emitterController.addEmitter(se1, se2, se3, e1, e2, e3);
 
 world.addEntity(new ClickEmitter(world, orbConstructor));
-
 
 world.loop();
 
@@ -105,12 +127,15 @@ f1.add(world, 'paused');
 f1.add(world, 'debug');
 f1.add(world, 'timePerAnimFrame', 1000/60, 200);
 
-f1.open();
-
 var f2 = gui.addFolder('Gravity');
+f2.add(gravity, 'magnitude', 0, 100);
+f2.add(gravity, 'active');
 f2.add(gravity, 'invert');
 
 var f2 = gui.addFolder('Wind');
+f2.add(wind, 'magnitude', 0, 100);
+f2.add(wind, 'active');
 f2.add(wind, 'invert');
 
-
+var f3 = gui.addFolder('Emitter');
+f3.add(emitterController, 'emit');
