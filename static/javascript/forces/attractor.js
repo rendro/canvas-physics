@@ -8,6 +8,7 @@ class Attractor extends Force {
 		this.force = force * 1e3;
 		this.radius = Math.min(Math.max(Math.abs(force/100), 40), 100);
 		this.lifecycle = 10;
+		super();
 	}
 
 	getForceAtPosition(entityPosition) {

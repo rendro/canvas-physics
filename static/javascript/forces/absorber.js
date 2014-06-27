@@ -11,6 +11,7 @@ class Absorber extends Attractor {
 		this.maxSize = 50;
 
 		this.shrink = false;
+		super(position, force);
 	}
 
 	applyTo(entity, world) {

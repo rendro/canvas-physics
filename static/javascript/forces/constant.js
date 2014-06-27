@@ -5,8 +5,7 @@ class ConstantForce extends Force {
 	constructor(force) {
 		this.magnitude = force.magnitude();
 		this.direction = force.normalize();
-
-		this.active = true;
+		super();
 	}
 
 	invert() {

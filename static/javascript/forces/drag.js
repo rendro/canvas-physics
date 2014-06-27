@@ -4,6 +4,7 @@ class Drag extends Force {
 
 	constructor(drag) {
 		this.drag = drag;
+		super();
 	}
 
 	applyTo(entity, world) {
