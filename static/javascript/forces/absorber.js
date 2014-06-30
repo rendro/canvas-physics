@@ -4,11 +4,12 @@ class Absorber extends Attractor {
 
 	constructor(position, force, radius) {
 		super(position, force);
-		this.radius = radius;
 		this.size = radius;
 
 		this.growthFactor = 0.4;
-		this.maxSize = 50;
+
+		this.minSize = radius * 1;
+		this.maxSize = radius * 5;
 
 		this.shrink = false;
 		super(position, force);
@@ -31,12 +32,14 @@ class Absorber extends Attractor {
 
 	render(ctx) {
 
-		if (this.size < this.radius){
-			this.shrink = false;
-		}
+
 
 		if (this.shrink) {
-			this.size *= 0.9;
+			this.size *= 0.92;
+
+			if (this.size <= this.minSize){
+				this.shrink = false;
+			}
 		}
 
 		ctx.beginPath();
