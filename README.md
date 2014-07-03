@@ -4,7 +4,7 @@ By using the experimental frontend boilerplate and a little self written 2D vect
 
 Here the link if you are interested how the Boilerplate is built: [Experimental Frontend Boilerplate](https://github.com/rendro/experimental-frontend-boilerplate)
 
-## Physical Laws
+## Physical units
 
 **v = velocity**
 
@@ -20,7 +20,7 @@ Here the link if you are interested how the Boilerplate is built: [Experimental 
 
 **m = mass (In our Model the mass is always 1 ...)**
 
-# Most important law:
+# Most important laws:
 (Newtons 1st law of motion)
 
 **F = m*a**
