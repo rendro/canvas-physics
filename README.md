@@ -77,7 +77,7 @@ var wind = new ConstantForce(new Vec2D(10, 0));
 world.addForce(wind);
 ```
 
-# Postion dependent forces:
+# Position dependent forces:
 
 Absorber:
 
