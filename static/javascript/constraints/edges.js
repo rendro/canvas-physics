@@ -3,6 +3,8 @@ var Constraint = require('./constraint.js');
 class Edges extends Constraint {
 
 	applyConstraint(world, entity) {
+		if (!this.active) { return; }
+
 		// bottom & top
 		if (entity.position.y > world.height && entity.velocity.y > 0) {
 			entity.velocity.y = -1 * Math.abs(entity.velocity.y);

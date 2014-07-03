@@ -10,7 +10,7 @@ rootDir   = process.cwd()
 staticDir = path.join(rootDir, 'static')
 viewsDir  = path.join(process.cwd(), 'views')
 
-app.set('page.title', 'NextGen Boilerplate')
+app.set('page.title', 'Vectorphysics')
 
 app.set('port', process.env.PORT or 3000)
 
