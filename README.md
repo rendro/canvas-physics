@@ -1,20 +1,26 @@
 # Physics Canvas 
 
-By using the experimental frontend boilerplate and a little self written 2D vector class we built an environment where you can play around with some basic physical laws and built your own little physics world on a canvas. By utilizng the boilerplate which comes already with some really awesome modern technologies, this demo is written all in handy beautiful and readable ecmascript 6 syntactic sugar. Give it a try, you will not regret it!
+By using the experimental frontend boilerplate and a little self written 2D vector class we built an environment where you can play around with some basic physical laws and built your own little physics world on a canvas. By utilizing the boilerplate which comes already with some really awesome modern technologies, this demo is written all in handy beautiful and readable ecmascript 6 syntactic sugar. Give it a try, you will not regret it!
 
-Here the link: [Experimental Frontend Boilerplate](https://github.com/rendro/experimental-frontend-boilerplate)
+Here the link if you are interested how the Boilerplate is built: [Experimental Frontend Boilerplate](https://github.com/rendro/experimental-frontend-boilerplate)
 
 ## Physical Laws
 
-v = velocity
-a = acceleration
-t = time
-d = distance
-f = Force
-F = Sum of Forces
-m = mass (In our Model the mass is always 1 ...) 
+**v = velocity**
 
-Most important law of motion
+**a = acceleration**
+
+**t = time**
+
+**d = distance**
+
+**f = Force**
+
+**F = Sum of Forces**
+
+**m = mass (In our Model the mass is always 1 ...)**
+
+#Most important law (Newtons 1st law of motion):
 
 **F = m*a**
 
