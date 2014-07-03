@@ -15,12 +15,15 @@ F = Sum of Forces
 m = mass (In our Model the mass is always 1 ...) 
 
 Most important law of motion
+
 **F = m*a**
 
 Velocity is the difference in distance divided by the difference in time
+
 **v = ds/dt**
 
 Acceleration is the difference in velocity divided by the difference in time
+
 **a = dv/dt**
 
 which results in the following statements also known as the the first law of Newton:
@@ -52,7 +55,7 @@ var edges = new EdgesConstraint();
 world.addConstraint(edges);
 ```
 
-## Forces that we already modelled (Feel free to add some)
+## Forces:
 
 Some of the forces and entities are not precisely modelled if you compare it to the real world, but for this demonstration it was enough.
 
@@ -67,7 +70,7 @@ var wind = new ConstantForce(new Vec2D(10, 0));
 world.addForce(wind);
 ```
 
-# Forces that apply different dependent on the position of an entity:
+# Postion dependent forces:
 
 Absorber:
 
@@ -81,20 +84,18 @@ Attractor/Distractor:
 world.addForce(new Attractor(new Vec2D(400, 300), -50));
 ```
 
-## Particles & Particle Emitter
-
-# Particles
+## Particles
 
 We implemented already circles, dyingcircles and orbs.
 
-Orb Construtor:
 ```js
 var orbConstructor = function(position, velocity) {
     return new Orb(position, velocity);
 };
 ```
 
-Orb Emitter:
+## Particle Emitter
+
 ```js
 var e1 = new Emitter(new Vec2D(300, 400), 0, 0, 90, 5, 10, orbConstructor);
 world.addEntity(e1);
