@@ -2,7 +2,7 @@
 
 By using the experimental frontend boilerplate and a little self written 2D vector class we built an environment where you can play around with some basic physical laws and built your own little physics world on a canvas. By utilizng the boilerplate which comes already with some really awesome modern technologies, this demo is written all in handy beautiful and readable ecmascript 6 syntactic sugar. Give it a try, you will not regret it!
 
-[Experimental Frontend Boilerplate](https://github.com/rendro/experimental-frontend-boilerplate)
+Here the link: [Experimental Frontend Boilerplate](https://github.com/rendro/experimental-frontend-boilerplate)
 
 ## Physical Laws
 
