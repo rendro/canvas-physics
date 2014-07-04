@@ -12,7 +12,7 @@ Here the link if you are interested how the Boilerplate is built: [Experimental 
 
 **t = time**
 
-**d = distance**
+**s = distance**
 
 **f = Force**
 
